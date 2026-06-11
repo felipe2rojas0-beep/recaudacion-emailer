@@ -232,6 +232,13 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
               >
                 Boton Carga Archivo excel
               </button>
+              <button
+                onClick={() => setShowContratantesModal(true)}
+                disabled={contratantes.length === 0}
+                className="px-6 py-2 bg-blue-700 hover:bg-blue-600 border border-blue-500 rounded font-medium disabled:opacity-50 whitespace-nowrap"
+              >
+                Ver Contratantes ({contratantes.length})
+              </button>
             </div>
           </div>
 
@@ -311,13 +318,6 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
                 className="px-6 py-3 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium disabled:opacity-50"
               >
                 {processing ? 'Procesando...' : 'Boton Envio Mail Excel Recaudacion por Contratante'}
-              </button>
-              <button
-                onClick={() => setShowContratantesModal(true)}
-                disabled={contratantes.length === 0}
-                className="px-6 py-3 bg-blue-700 hover:bg-blue-600 border border-blue-500 rounded font-medium disabled:opacity-50 whitespace-nowrap"
-              >
-                Ver Contratantes ({contratantes.length})
               </button>
             </div>
           </div>
