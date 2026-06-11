@@ -28,6 +28,8 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
   const [contratantes, setContratantes] = useState<any[]>([]);
   const [validContratantes, setValidContratantes] = useState(false);
   const [validRecaudaciones, setValidRecaudaciones] = useState(false);
+  const [validatedContratantes, setValidatedContratantes] = useState(false);
+  const [validatedRecaudaciones, setValidatedRecaudaciones] = useState(false);
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [logs, setLogs] = useState<LogEntry[]>([]);
@@ -105,8 +107,10 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
       if (response.data.contratantes) {
         setContratantes(response.data.contratantes);
       }
+      setValidatedContratantes(true);
     } catch (err: any) {
       setError(err.response?.data?.error || 'Error al validar contratantes');
+      setValidatedContratantes(false);
     } finally {
       setLoading(false);
     }
@@ -123,8 +127,10 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
     try {
       const response = await procesamientoAPI.validateRecaudacionesLoaded();
       setStatusMsg(response.data.message);
+      setValidatedRecaudaciones(true);
     } catch (err: any) {
       setError(err.response?.data?.error || 'Error al validar recaudaciones');
+      setValidatedRecaudaciones(false);
     } finally {
       setLoading(false);
     }
@@ -169,6 +175,8 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
       setRecaudacionesFileList([]);
       setValidContratantes(false);
       setValidRecaudaciones(false);
+      setValidatedContratantes(false);
+      setValidatedRecaudaciones(false);
       setResult(null);
       setLogs([]);
       setStatusMsg('Sistema reiniciado');
@@ -298,7 +306,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
               </button>
               <button
                 onClick={handleEnviarMail}
-                disabled={processing || !validContratantes || !validRecaudaciones || contratantes.length === 0}
+                disabled={processing || !validatedContratantes || !validatedRecaudaciones || contratantes.length === 0}
                 className="px-6 py-3 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium disabled:opacity-50"
               >
                 {processing ? 'Procesando...' : 'Boton Envio Mail Excel Recaudacion por Contratante'}
