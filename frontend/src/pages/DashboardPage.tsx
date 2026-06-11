@@ -24,6 +24,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
   const [recaudacionesFileCount, setRecaudacionesFileCount] = useState(0);
   const [recaudacionesFileList, setRecaudacionesFileList] = useState<string[]>([]);
   const [showFilesModal, setShowFilesModal] = useState(false);
+  const [showContratantesModal, setShowContratantesModal] = useState(false);
 
   const [contratantes, setContratantes] = useState<any[]>([]);
   const [validContratantes, setValidContratantes] = useState(false);
@@ -311,6 +312,13 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
               >
                 {processing ? 'Procesando...' : 'Boton Envio Mail Excel Recaudacion por Contratante'}
               </button>
+              <button
+                onClick={() => setShowContratantesModal(true)}
+                disabled={contratantes.length === 0}
+                className="px-6 py-3 bg-blue-700 hover:bg-blue-600 border border-blue-500 rounded font-medium disabled:opacity-50 whitespace-nowrap"
+              >
+                Ver Contratantes ({contratantes.length})
+              </button>
             </div>
           </div>
         </div>
@@ -348,36 +356,6 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
                 <div className="text-2xl font-bold text-red-400">{result.errores}</div>
                 <div className="text-red-300 text-sm">Errores</div>
               </div>
-            </div>
-          </div>
-        )}
-
-        {contratantes.length > 0 && (
-          <div className="border border-gray-600 rounded-lg p-4 mb-4">
-            <h2 className="font-bold mb-3 border-b border-gray-600 pb-2">
-              Contratantes Cargados ({contratantes.length})
-            </h2>
-            <div className="max-h-48 overflow-y-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-gray-600">
-                    <th className="text-left py-2 px-2">Nombre</th>
-                    <th className="text-left py-2 px-2">RUT</th>
-                    <th className="text-left py-2 px-2">ID</th>
-                    <th className="text-left py-2 px-2">Email</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {contratantes.map((c, i) => (
-                    <tr key={i} className="border-b border-gray-700 hover:bg-gray-800">
-                      <td className="py-1 px-2">{c.nombre}</td>
-                      <td className="py-1 px-2">{c.rut}</td>
-                      <td className="py-1 px-2">{c.id}</td>
-                      <td className="py-1 px-2">{c.email}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
             </div>
           </div>
         )}
@@ -468,6 +446,57 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
             </div>
             <button
               onClick={() => setShowFilesModal(false)}
+              className="mt-4 w-full py-2 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showContratantesModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="bg-gray-900 border border-gray-600 rounded-lg p-6 w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col">
+            <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-3">
+              <h2 className="text-lg font-bold">Contratantes Cargados ({contratantes.length})</h2>
+              <button
+                onClick={() => setShowContratantesModal(false)}
+                className="text-gray-400 hover:text-white text-2xl"
+              >
+                ×
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto">
+              {contratantes.length === 0 ? (
+                <p className="text-gray-400 text-center py-4">No hay contratantes cargados</p>
+              ) : (
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-600">
+                      <th className="text-left py-2 px-2">Nombre</th>
+                      <th className="text-left py-2 px-2">RUT</th>
+                      <th className="text-left py-2 px-2">ID</th>
+                      <th className="text-left py-2 px-2">Email</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {contratantes.map((c, i) => (
+                      <tr key={i} className="border-b border-gray-700 hover:bg-gray-800">
+                        <td className="py-1 px-2">{c.nombre}</td>
+                        <td className="py-1 px-2">{c.rut}</td>
+                        <td className="py-1 px-2">{c.id}</td>
+                        <td className="py-1 px-2">{c.email}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+            <div className="mt-4 text-center text-sm text-gray-400">
+              Total: {contratantes.length} contratante(s)
+            </div>
+            <button
+              onClick={() => setShowContratantesModal(false)}
               className="mt-4 w-full py-2 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium"
             >
               Cerrar
