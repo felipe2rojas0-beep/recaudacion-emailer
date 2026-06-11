@@ -31,6 +31,9 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
   const [validRecaudaciones, setValidRecaudaciones] = useState(false);
   const [validatedContratantes, setValidatedContratantes] = useState(false);
   const [validatedRecaudaciones, setValidatedRecaudaciones] = useState(false);
+  const [clickedValidarContratantes, setClickedValidarContratantes] = useState(false);
+  const [clickedValidarRecaudaciones, setClickedValidarRecaudaciones] = useState(false);
+  const [clickedEnviarMail, setClickedEnviarMail] = useState(false);
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [logs, setLogs] = useState<LogEntry[]>([]);
@@ -99,6 +102,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
       setError('Primero cargue el archivo de contratantes');
       return;
     }
+    setClickedValidarContratantes(true);
     setLoading(true);
     setError('');
     setStatusMsg('Validando archivos Excel de contratantes...');
@@ -122,6 +126,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
       setError('Primero cargue el directorio de recaudaciones');
       return;
     }
+    setClickedValidarRecaudaciones(true);
     setLoading(true);
     setError('');
     setStatusMsg('Validando archivos Excel de recaudaciones...');
@@ -148,6 +153,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
     }
     if (!confirm('¿Está seguro de procesar el envío de correos a todos los contratantes?')) return;
 
+    setClickedEnviarMail(true);
     setProcessing(true);
     setResult(null);
     setError('');
@@ -178,6 +184,9 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
       setValidRecaudaciones(false);
       setValidatedContratantes(false);
       setValidatedRecaudaciones(false);
+      setClickedValidarContratantes(false);
+      setClickedValidarRecaudaciones(false);
+      setClickedEnviarMail(false);
       setResult(null);
       setLogs([]);
       setStatusMsg('Sistema reiniciado');
@@ -301,21 +310,21 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
               <button
                 onClick={handleValidarContratantes}
                 disabled={loading || !validContratantes}
-                className="px-6 py-3 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium disabled:opacity-50"
+                className={`px-6 py-3 border rounded font-medium disabled:opacity-50 ${clickedValidarContratantes ? 'bg-green-800 border-green-600 text-white' : 'bg-gray-700 hover:bg-gray-600 border-gray-500'}`}
               >
                 Boton Valida Archivos Excel Contratantes
               </button>
               <button
                 onClick={handleValidarRecaudaciones}
                 disabled={loading || !validRecaudaciones}
-                className="px-6 py-3 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium disabled:opacity-50"
+                className={`px-6 py-3 border rounded font-medium disabled:opacity-50 ${clickedValidarRecaudaciones ? 'bg-green-800 border-green-600 text-white' : 'bg-gray-700 hover:bg-gray-600 border-gray-500'}`}
               >
                 Boton Valida Archivos Excel Recaudaciones
               </button>
               <button
                 onClick={handleEnviarMail}
                 disabled={processing || !validatedContratantes || !validatedRecaudaciones || contratantes.length === 0}
-                className="px-6 py-3 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium disabled:opacity-50"
+                className={`px-6 py-3 border rounded font-medium disabled:opacity-50 ${clickedEnviarMail ? 'bg-green-800 border-green-600 text-white' : 'bg-gray-700 hover:bg-gray-600 border-gray-500'}`}
               >
                 {processing ? 'Procesando...' : 'Boton Envio Mail Excel Recaudacion por Contratante'}
               </button>
