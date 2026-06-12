@@ -196,7 +196,12 @@ router.post('/generate-names', (req, res) => {
       const rutClean = cleanForFilename(c.rut);
       const idClean = cleanForFilename(c.id);
       const nombreClean = cleanForFilename(c.nombre);
-      return `REC_${rutClean}_${idClean}_${nombreClean}.XLXS`;
+      return {
+        rut: c.rut,
+        id: c.id,
+        nombre: c.nombre,
+        nombreArchivo: `REC_${rutClean}_${idClean}_${nombreClean}.XLXS`
+      };
     });
 
     res.json({
@@ -216,13 +221,13 @@ router.post('/download-names', (req, res) => {
       return res.status(400).json({ error: 'No hay nombres generados para descargar' });
     }
 
-    const wsData = [['N°', 'Nombre Archivo']];
-    generatedNames.forEach((name, i) => {
-      wsData.push([i + 1, name]);
+    const wsData = [['N°', 'RUT', 'ID', 'Nombre Contratante', 'Nombre Archivo']];
+    generatedNames.forEach((item, i) => {
+      wsData.push([i + 1, item.rut, item.id, item.nombre, item.nombreArchivo]);
     });
 
     const ws = xlsx.utils.aoa_to_sheet(wsData);
-    ws['!cols'] = [{ wch: 5 }, { wch: 60 }];
+    ws['!cols'] = [{ wch: 5 }, { wch: 15 }, { wch: 5 }, { wch: 30 }, { wch: 60 }];
 
     const wb = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(wb, ws, 'Nombres Generados');

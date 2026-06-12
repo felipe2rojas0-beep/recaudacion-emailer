@@ -49,7 +49,7 @@ export default function GeneratorPage({ onLogout }: GeneratorPageProps) {
   const [showContratantesModal, setShowContratantesModal] = useState(false);
 
   const [contratantes, setContratantes] = useState<any[]>([]);
-  const [generatedNames, setGeneratedNames] = useState<string[]>([]);
+  const [generatedNames, setGeneratedNames] = useState<{rut: string; id: string; nombre: string; nombreArchivo: string}[]>([]);
   const [validContratantes, setValidContratantes] = useState(false);
   const [validatedContratantes, setValidatedContratantes] = useState(false);
   const [clickedCargarContratantes, setClickedCargarContratantes] = useState(false);
@@ -284,14 +284,28 @@ export default function GeneratorPage({ onLogout }: GeneratorPageProps) {
             {generatedNames.length === 0 ? (
               <p className="text-gray-400 text-center py-4">No hay nombres generados</p>
             ) : (
-              generatedNames.map((name, i) => (
-                <div
-                  key={i}
-                  className="py-2 px-4 border-b border-gray-700 hover:bg-gray-800 text-sm"
-                >
-                  {name}
-                </div>
-              ))
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-600">
+                    <th className="text-left py-2 px-2">N°</th>
+                    <th className="text-left py-2 px-2">RUT</th>
+                    <th className="text-left py-2 px-2">ID</th>
+                    <th className="text-left py-2 px-2">Nombre Contratante</th>
+                    <th className="text-left py-2 px-2">Nombre Archivo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {generatedNames.map((item, i) => (
+                    <tr key={i} className="border-b border-gray-700 hover:bg-gray-800">
+                      <td className="py-1 px-2">{i + 1}</td>
+                      <td className="py-1 px-2">{item.rut}</td>
+                      <td className="py-1 px-2">{item.id}</td>
+                      <td className="py-1 px-2">{item.nombre}</td>
+                      <td className="py-1 px-2">{item.nombreArchivo}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             )}
           </div>
           {generatedNames.length > 0 && (
