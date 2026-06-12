@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
+import GeneratorPage from './pages/GeneratorPage';
 
 interface User {
   id: number;
@@ -8,8 +9,11 @@ interface User {
   nombre: string;
 }
 
+type Page = 'dashboard' | 'generador';
+
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
+  const [currentPage, setCurrentPage] = useState<Page>('dashboard');
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -33,11 +37,41 @@ export default function App() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setUser(null);
+    setCurrentPage('dashboard');
   };
 
   if (!user) {
     return <LoginPage onLogin={handleLogin} />;
   }
 
-  return <DashboardPage onLogout={handleLogout} />;
+  return (
+    <div>
+      <nav className="bg-gray-900 border-b border-gray-700 px-4 py-2 flex items-center gap-4">
+        <span className="text-white font-bold mr-4">Menú:</span>
+        <button
+          onClick={() => setCurrentPage('dashboard')}
+          className={`px-4 py-2 rounded font-medium ${
+            currentPage === 'dashboard'
+              ? 'bg-blue-700 text-white'
+              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+          }`}
+        >
+          Envío de Correos
+        </button>
+        <button
+          onClick={() => setCurrentPage('generador')}
+          className={`px-4 py-2 rounded font-medium ${
+            currentPage === 'generador'
+              ? 'bg-blue-700 text-white'
+              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+          }`}
+        >
+          Generador de Nombres
+        </button>
+      </nav>
+
+      {currentPage === 'dashboard' && <DashboardPage onLogout={handleLogout} />}
+      {currentPage === 'generador' && <GeneratorPage onLogout={handleLogout} />}
+    </div>
+  );
 }
