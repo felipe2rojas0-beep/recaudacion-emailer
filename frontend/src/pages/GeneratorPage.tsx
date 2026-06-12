@@ -5,6 +5,24 @@ interface GeneratorPageProps {
   onLogout: () => void;
 }
 
+const cleanBOM = (str: string): string => {
+  if (!str) return str;
+  return str
+    .replace(/\uFEFF/g, '')
+    .replace(/\uFFFD/g, '')
+    .replace(/[\u200B-\u200F\u2028-\u202F\u2060-\u206F\u00A0]/g, '')
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '')
+    .trim();
+};
+
+const cleanContratantes = (arr: any[]) =>
+  arr.map(c => ({
+    ...c,
+    rut: cleanBOM(c.rut),
+    id: cleanBOM(c.id),
+    nombre: cleanBOM(c.nombre)
+  }));
+
 const api = axios.create({ baseURL: '/api' });
 
 api.interceptors.request.use((config) => {
@@ -61,7 +79,7 @@ export default function GeneratorPage({ onLogout }: GeneratorPageProps) {
       const response = await api.post('/generador/upload-contratantes', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      setContratantes(response.data.contratantes);
+      setContratantes(cleanContratantes(response.data.contratantes));
       setContratantesFileName(files[0].name);
       setValidContratantes(true);
       setArchivoCargado(true);
@@ -90,7 +108,7 @@ export default function GeneratorPage({ onLogout }: GeneratorPageProps) {
       const response = await api.post('/generador/validate-contratantes');
       setStatusMsg(response.data.message);
       if (response.data.contratantes) {
-        setContratantes(response.data.contratantes);
+        setContratantes(cleanContratantes(response.data.contratantes));
       }
       setValidatedContratantes(true);
     } catch (err: any) {

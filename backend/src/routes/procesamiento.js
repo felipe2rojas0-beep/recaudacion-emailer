@@ -102,6 +102,16 @@ const parseExcelBuffer = (buffer, originalname) => {
   return xlsx.utils.sheet_to_json(sheet);
 };
 
+const cleanBOM = (str) => {
+  if (!str) return str;
+  return String(str)
+    .replace(/\uFEFF/g, '')
+    .replace(/\uFFFD/g, '')
+    .replace(/[\u200B-\u200F\u2028-\u202F\u2060-\u206F\u00A0]/g, '')
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '')
+    .trim();
+};
+
 router.post('/upload-contratantes', upload.array('files', 10), (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
@@ -114,17 +124,17 @@ router.post('/upload-contratantes', upload.array('files', 10), (req, res) => {
       const data = parseExcelBuffer(file.buffer, file.originalname);
 
       for (const row of data) {
-        const rut = row['RUT'] || row['Rut'] || row['rut'] || row['RUT CONTRATANTE'] || row['Rut Contratante'];
-        const id = row['ID'] || row['Id'] || row['id'] || row['ID CONTRATANTE'] || row['Id Contratante'];
-        const nombre = row['NOMBRE'] || row['Nombre'] || row['nombre'] || row['CONTRATANTE'] || row['Contratante'] || row['contratante'] || row['NOMBRE CONTRATANTE'] || row['Nombre Contratante'];
-        const email = row['EMAIL'] || row['Email'] || row['email'] || row['CORREO'] || row['Correo'] || row['correo'] || row['E-MAIL'] || row['E-mail'];
+        const rut = cleanBOM(row['RUT'] || row['Rut'] || row['rut'] || row['RUT CONTRATANTE'] || row['Rut Contratante']);
+        const id = cleanBOM(row['ID'] || row['Id'] || row['id'] || row['ID CONTRATANTE'] || row['Id Contratante']);
+        const nombre = cleanBOM(row['NOMBRE'] || row['Nombre'] || row['nombre'] || row['CONTRATANTE'] || row['Contratante'] || row['contratante'] || row['NOMBRE CONTRATANTE'] || row['Nombre Contratante']);
+        const email = cleanBOM(row['EMAIL'] || row['Email'] || row['email'] || row['CORREO'] || row['Correo'] || row['correo'] || row['E-MAIL'] || row['E-mail']);
 
         if (rut && id && nombre && email) {
           contratantes.push({
-            rut: String(rut).trim(),
-            id: String(id).trim(),
-            nombre: String(nombre).trim(),
-            email: String(email).trim()
+            rut,
+            id,
+            nombre,
+            email
           });
         }
       }

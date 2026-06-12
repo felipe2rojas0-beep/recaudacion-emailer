@@ -1,6 +1,25 @@
 import { useState, useRef } from 'react';
 import { procesamientoAPI } from '../services/api';
 
+const cleanBOM = (str: string): string => {
+  if (!str) return str;
+  return str
+    .replace(/\uFEFF/g, '')
+    .replace(/\uFFFD/g, '')
+    .replace(/[\u200B-\u200F\u2028-\u202F\u2060-\u206F\u00A0]/g, '')
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '')
+    .trim();
+};
+
+const cleanContratantes = (arr: any[]) =>
+  arr.map(c => ({
+    ...c,
+    rut: cleanBOM(c.rut),
+    id: cleanBOM(c.id),
+    nombre: cleanBOM(c.nombre),
+    email: cleanBOM(c.email)
+  }));
+
 interface DashboardPageProps {
   onLogout: () => void;
 }
@@ -56,7 +75,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
 
     try {
       const response = await procesamientoAPI.uploadContratantes(files);
-      setContratantes(response.data.contratantes);
+      setContratantes(cleanContratantes(response.data.contratantes));
       setContratantesFileName(files[0].name);
       setValidContratantes(true);
       setStatusMsg(response.data.message);
@@ -116,7 +135,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
       const response = await procesamientoAPI.validateContratantesLoaded();
       setStatusMsg(response.data.message);
       if (response.data.contratantes) {
-        setContratantes(response.data.contratantes);
+        setContratantes(cleanContratantes(response.data.contratantes));
       }
       setValidatedContratantes(true);
     } catch (err: any) {
