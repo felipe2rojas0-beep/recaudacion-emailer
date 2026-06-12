@@ -26,22 +26,50 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-page: #1A1A1B;
+            --bg-card: #1f2937;
+            --bg-card-alt: #2d2d2d;
+            --bg-input: #374151;
+            --bg-row-even: #262626;
+            --border-color: #374151;
+            --text-page: #e2e8f0;
+            --text-heading: #ffffff;
+            --text-body: #d1d5db;
+            --text-muted: #9ca3af;
+        }
+        [data-theme="light"] {
+            --bg-page: #f3f4f6;
+            --bg-card: #ffffff;
+            --bg-card-alt: #f9fafb;
+            --bg-input: #f3f4f6;
+            --bg-row-even: #f3f4f6;
+            --border-color: #d1d5db;
+            --text-page: #1f2937;
+            --text-heading: #111827;
+            --text-body: #374151;
+            --text-muted: #6b7280;
+        }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Hanken Grotesk', sans-serif; }
+        body { font-family: 'Hanken Grotesk', sans-serif; background-color: var(--bg-page); color: var(--text-page); transition: background-color 0.3s, color 0.3s; }
         .nav-link:hover { background-color: #D9C562; color: #1A1A1B; }
         .nav-link.active { background-color: #D9C562; color: #1A1A1B; }
-        pre { background-color: #2d2d2d; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+        pre { background-color: var(--bg-card-alt); color: var(--text-page); padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
         code { font-family: 'Courier New', monospace; }
-        .code-inline { background-color: #374151; color: #D9C562; padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        .code-inline { background-color: var(--bg-input); color: #D9C562; padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-size: 0.875rem; }
         table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #374151; padding: 0.75rem; text-align: left; }
-        th { background-color: #2d2d2d; color: #D9C562; }
-        tr:nth-child(even) { background-color: #262626; }
+        th, td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+        th { background-color: var(--bg-card-alt); color: #D9C562; }
+        tr:nth-child(even) { background-color: var(--bg-row-even); }
         .section { margin-bottom: 2rem; }
-        .flowchart { font-family: monospace; white-space: pre; background: #2d2d2d; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; border: 1px solid #374151; }
+        .flowchart { font-family: monospace; white-space: pre; background: var(--bg-card-alt); color: var(--text-page); padding: 1rem; border-radius: 0.5rem; border: 1px solid var(--border-color); }
+        .theme-card { background-color: var(--bg-card); border-color: var(--border-color); color: var(--text-page); transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+        .theme-text { color: var(--text-page); }
+        .theme-heading { color: var(--text-heading); }
+        .theme-muted { color: var(--text-muted); }
     </style>
 </head>
-<body class="bg-neutral text-gray-200">
+<body class="bg-neutral theme-text">
     <!-- Navbar -->
     <nav class="bg-neutral border-b border-gray-700 text-white p-4 fixed w-full top-0 z-50 shadow-lg">
         <div class="container mx-auto flex justify-between items-center">
@@ -51,61 +79,71 @@
                 </div>
                 <h1 class="text-xl font-headline font-bold">Recaudación Emailer</h1>
             </div>
-            <div class="space-x-4">
-                <a href="#introduccion" class="nav-link px-3 py-2 rounded-lg text-gray-300 hover:text-neutral transition-all">Inicio</a>
-                <a href="#instalacion" class="nav-link px-3 py-2 rounded-lg text-gray-300 hover:text-neutral transition-all">Instalación</a>
-                <a href="#configuracion" class="nav-link px-3 py-2 rounded-lg text-gray-300 hover:text-neutral transition-all">Configuración</a>
-                <a href="#envio" class="nav-link px-3 py-2 rounded-lg text-gray-300 hover:text-neutral transition-all">Envío Correos</a>
-                <a href="#generador" class="nav-link px-3 py-2 rounded-lg text-gray-300 hover:text-neutral transition-all">Generador</a>
-                <a href="#api" class="nav-link px-3 py-2 rounded-lg text-gray-300 hover:text-neutral transition-all">API</a>
+            <div class="flex items-center gap-2">
+                <div class="space-x-4">
+                    <a href="#introduccion" class="nav-link px-3 py-2 rounded-lg theme-text hover:text-neutral transition-all">Inicio</a>
+                    <a href="#instalacion" class="nav-link px-3 py-2 rounded-lg theme-text hover:text-neutral transition-all">Instalación</a>
+                    <a href="#configuracion" class="nav-link px-3 py-2 rounded-lg theme-text hover:text-neutral transition-all">Configuración</a>
+                    <a href="#envio" class="nav-link px-3 py-2 rounded-lg theme-text hover:text-neutral transition-all">Envío Correos</a>
+                    <a href="#generador" class="nav-link px-3 py-2 rounded-lg theme-text hover:text-neutral transition-all">Generador</a>
+                    <a href="#api" class="nav-link px-3 py-2 rounded-lg theme-text hover:text-neutral transition-all">API</a>
+                </div>
+                <button id="theme-toggle" class="p-2 rounded-lg border border-gray-600 theme-text hover:text-heading hover:bg-gray-700 transition-all ml-3" title="Cambiar tema">
+                    <svg id="icon-dark" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <svg id="icon-light" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Sidebar -->
-    <aside class="fixed left-0 top-16 w-64 h-full bg-gray-800 text-white p-4 overflow-y-auto hidden lg:block border-r border-gray-700">
+    <aside class="fixed left-0 top-16 w-64 h-full theme-card bg-gray-800 text-heading p-4 overflow-y-auto hidden lg:block border-r border-gray-700">
         <h2 class="text-lg font-headline font-bold mb-4 text-primary">Contenido</h2>
         <ul class="space-y-2 text-sm">
-            <li><a href="#introduccion" class="block text-gray-300 hover:text-primary transition-all">1. Introducción</a></li>
-            <li><a href="#requisitos" class="block text-gray-300 hover:text-primary transition-all">2. Requisitos del Sistema</a></li>
-            <li><a href="#instalacion" class="block text-gray-300 hover:text-primary transition-all">3. Instalación</a></li>
-            <li><a href="#configuracion" class="block text-gray-300 hover:text-primary transition-all">4. Configuración</a></li>
-            <li><a href="#inicio" class="block text-gray-300 hover:text-primary transition-all">5. Inicio del Sistema</a></li>
-            <li><a href="#autenticacion" class="block text-gray-300 hover:text-primary transition-all">6. Autenticación</a></li>
-            <li><a href="#envio" class="block text-gray-300 hover:text-primary transition-all">7. Módulo: Envío de Correos</a></li>
-            <li><a href="#generador" class="block text-gray-300 hover:text-primary transition-all">8. Módulo: Generador de Nombres</a></li>
-            <li><a href="#formato" class="block text-gray-300 hover:text-primary transition-all">9. Formato de Archivos</a></li>
-            <li><a href="#api" class="block text-gray-300 hover:text-primary transition-all">10. API REST</a></li>
-            <li><a href="#problemas" class="block text-gray-300 hover:text-primary transition-all">11. Solución de Problemas</a></li>
-            <li><a href="#seguridad" class="block text-gray-300 hover:text-primary transition-all">12. Seguridad</a></li>
-            <li><a href="#tecnico" class="block text-gray-300 hover:text-primary transition-all">13. Información Técnica</a></li>
+            <li><a href="#introduccion" class="block theme-text hover:text-primary transition-all">1. Introducción</a></li>
+            <li><a href="#requisitos" class="block theme-text hover:text-primary transition-all">2. Requisitos del Sistema</a></li>
+            <li><a href="#instalacion" class="block theme-text hover:text-primary transition-all">3. Instalación</a></li>
+            <li><a href="#configuracion" class="block theme-text hover:text-primary transition-all">4. Configuración</a></li>
+            <li><a href="#inicio" class="block theme-text hover:text-primary transition-all">5. Inicio del Sistema</a></li>
+            <li><a href="#autenticacion" class="block theme-text hover:text-primary transition-all">6. Autenticación</a></li>
+            <li><a href="#envio" class="block theme-text hover:text-primary transition-all">7. Módulo: Envío de Correos</a></li>
+            <li><a href="#generador" class="block theme-text hover:text-primary transition-all">8. Módulo: Generador de Nombres</a></li>
+            <li><a href="#formato" class="block theme-text hover:text-primary transition-all">9. Formato de Archivos</a></li>
+            <li><a href="#api" class="block theme-text hover:text-primary transition-all">10. API REST</a></li>
+            <li><a href="#problemas" class="block theme-text hover:text-primary transition-all">11. Solución de Problemas</a></li>
+            <li><a href="#seguridad" class="block theme-text hover:text-primary transition-all">12. Seguridad</a></li>
+            <li><a href="#tecnico" class="block theme-text hover:text-primary transition-all">13. Información Técnica</a></li>
         </ul>
     </aside>
 
     <!-- Main Content -->
     <main class="ml-0 lg:ml-64 pt-20 pb-16 px-4 md:px-8 max-w-5xl">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-gray-800 to-gray-700 text-white p-8 rounded-2xl mb-8 shadow-xl border border-gray-700">
+        <div class="theme-card bg-gradient-to-r from-gray-800 to-gray-700 text-heading p-8 rounded-2xl mb-8 shadow-xl border border-gray-700">
             <div class="flex items-center gap-4 mb-4">
                 <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
                     <span class="text-neutral font-headline font-bold text-xl">R</span>
                 </div>
                 <div>
                     <h1 class="text-4xl font-headline font-bold mb-2">Manual de Usuario</h1>
-                    <h2 class="text-2xl text-gray-300">Recaudación Emailer</h2>
+                    <h2 class="text-2xl theme-text">Recaudación Emailer</h2>
                 </div>
             </div>
-            <p class="mt-4 text-gray-400">Sistema de gestión y envío de archivos de recaudación por correo electrónico</p>
-            <p class="text-sm mt-2 text-gray-500">Versión 1.0 | Junio 2026 | Autor: Marcelo Javier Ramirez Duran</p>
+            <p class="mt-4 theme-muted">Sistema de gestión y envío de archivos de recaudación por correo electrónico</p>
+            <p class="text-sm mt-2 theme-muted">Versión 1.0 | Junio 2026 | Autor: Marcelo Javier Ramirez Duran</p>
         </div>
 
         <!-- 1. Introducción -->
-        <section id="introduccion" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="introduccion" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">1. Introducción</h2>
-            <p class="mb-4 text-gray-300"><strong class="text-white">Recaudación Emailer</strong> es una aplicación interna para la gestión y envío de archivos Excel de recaudación a contratantes vía correo electrónico.</p>
+            <p class="mb-4 theme-text"><strong class="text-heading">Recaudación Emailer</strong> es una aplicación interna para la gestión y envío de archivos Excel de recaudación a contratantes vía correo electrónico.</p>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">Características Principales</h3>
-            <ul class="list-disc list-inside mb-4 space-y-1 text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">Características Principales</h3>
+            <ul class="list-disc list-inside mb-4 space-y-1 theme-text">
                 <li>Envío masivo de archivos Excel de recaudación por correo electrónico</li>
                 <li>Generador de nombres estandarizados para archivos</li>
                 <li>Interfaz web moderna con React + Tailwind CSS</li>
@@ -113,14 +151,14 @@
                 <li>Procesamiento de archivos Excel/CSV con manejo de encoding UTF-8</li>
             </ul>
 
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">Arquitectura</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">Arquitectura</h3>
             <div class="flowchart">
 Frontend (React + Vite)  →  Backend (Express + Node.js)  →  SMTP (Gmail)
      Puerto 5173                  Puerto 3001</div>
         </section>
 
         <!-- 2. Requisitos -->
-        <section id="requisitos" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="requisitos" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">2. Requisitos del Sistema</h2>
             <table>
                 <thead>
@@ -134,36 +172,36 @@ Frontend (React + Vite)  →  Backend (Express + Node.js)  →  SMTP (Gmail)
                 </tbody>
             </table>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">Puertos Requeridos</h3>
-            <ul class="list-disc list-inside text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">Puertos Requeridos</h3>
+            <ul class="list-disc list-inside theme-text">
                 <li><strong class="text-primary">5173</strong>: Frontend (Vite dev server)</li>
                 <li><strong class="text-primary">3001</strong>: Backend (Express API)</li>
             </ul>
         </section>
 
         <!-- 3. Instalación -->
-        <section id="instalacion" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="instalacion" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">3. Instalación</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">3.1 Clonar el Repositorio</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">3.1 Clonar el Repositorio</h3>
             <pre><code>git clone https://github.com/tu-usuario/recaudacion-emailer.git
 cd recaudacion-emailer</code></pre>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">3.2 Instalar Backend</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">3.2 Instalar Backend</h3>
             <pre><code>cd backend
 npm install</code></pre>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">3.3 Instalar Frontend</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">3.3 Instalar Frontend</h3>
             <pre><code>cd frontend
 npm install</code></pre>
         </section>
 
         <!-- 4. Configuración -->
-        <section id="configuracion" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="configuracion" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">4. Configuración</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">4.1 Variables de Entorno</h3>
-            <p class="mb-2 text-gray-300">El archivo <span class="code-inline">backend/.env.local</span> contiene la configuración del sistema:</p>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">4.1 Variables de Entorno</h3>
+            <p class="mb-2 theme-text">El archivo <span class="code-inline">backend/.env.local</span> contiene la configuración del sistema:</p>
             <table>
                 <thead>
                     <tr><th>Variable</th><th>Valor por Defecto</th><th>Descripción</th></tr>
@@ -181,14 +219,14 @@ npm install</code></pre>
                 </tbody>
             </table>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">4.2 Configuración SMTP (Gmail)</h3>
-            <ol class="list-decimal list-inside mb-4 space-y-1 text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">4.2 Configuración SMTP (Gmail)</h3>
+            <ol class="list-decimal list-inside mb-4 space-y-1 theme-text">
                 <li>Habilitar verificación en 2 pasos en la cuenta de Google</li>
-                <li>Generar una <strong class="text-white">Contraseña de Aplicación</strong> en: <a href="https://myaccount.google.com/apppasswords" class="text-primary underline hover:text-yellow-400">https://myaccount.google.com/apppasswords</a></li>
+                <li>Generar una <strong class="text-heading">Contraseña de Aplicación</strong> en: <a href="https://myaccount.google.com/apppasswords" class="text-primary underline hover:text-yellow-400">https://myaccount.google.com/apppasswords</a></li>
                 <li>Usar esa contraseña en <span class="code-inline">SMTP_PASS</span></li>
             </ol>
 
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">4.3 Estructura de Directorios</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">4.3 Estructura de Directorios</h3>
             <div class="flowchart">
 C:\RECAUDACION\
 ├── {AÑO}\
@@ -199,28 +237,28 @@ C:\RECAUDACION\
         </section>
 
         <!-- 5. Inicio del Sistema -->
-        <section id="inicio" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="inicio" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">5. Inicio del Sistema</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">5.1 Iniciar Backend</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">5.1 Iniciar Backend</h3>
             <pre><code>cd backend
 npm run dev</code></pre>
-            <p class="mt-2 text-gray-300">El servidor iniciará en <span class="code-inline">http://localhost:3001</span></p>
+            <p class="mt-2 theme-text">El servidor iniciará en <span class="code-inline">http://localhost:3001</span></p>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">5.2 Iniciar Frontend</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">5.2 Iniciar Frontend</h3>
             <pre><code>cd frontend
 npm run dev</code></pre>
-            <p class="mt-2 text-gray-300">El frontend estará disponible en <span class="code-inline">http://localhost:5173</span></p>
+            <p class="mt-2 theme-text">El frontend estará disponible en <span class="code-inline">http://localhost:5173</span></p>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">5.3 Verificar Funcionamiento</h3>
-            <p class="text-gray-300">Abrir en el navegador: <span class="code-inline">http://localhost:5173/</span></p>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">5.3 Verificar Funcionamiento</h3>
+            <p class="theme-text">Abrir en el navegador: <span class="code-inline">http://localhost:5173/</span></p>
         </section>
 
         <!-- 6. Autenticación -->
-        <section id="autenticacion" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="autenticacion" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">6. Autenticación</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">6.1 Credenciales por Defecto</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">6.1 Credenciales por Defecto</h3>
             <table>
                 <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
                 <tbody>
@@ -229,8 +267,8 @@ npm run dev</code></pre>
                 </tbody>
             </table>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">6.2 Flujo de Autenticación</h3>
-            <ol class="list-decimal list-inside space-y-1 text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">6.2 Flujo de Autenticación</h3>
+            <ol class="list-decimal list-inside space-y-1 theme-text">
                 <li>Ingresar usuario y contraseña en el formulario de login</li>
                 <li>El sistema genera un token JWT válido por sesión</li>
                 <li>El token se almacena en <span class="code-inline">localStorage</span> del navegador</li>
@@ -239,10 +277,10 @@ npm run dev</code></pre>
         </section>
 
         <!-- 7. Módulo: Envío de Correos -->
-        <section id="envio" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="envio" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">7. Módulo: Envío de Correos</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">7.1 Flujo de Trabajo</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">7.1 Flujo de Trabajo</h3>
             <div class="flowchart">
 ┌─────────────────────┐
 │ 1. Cargar           │
@@ -271,12 +309,12 @@ npm run dev</code></pre>
 │ 5. Ver Logs         │
 └─────────────────────┘</div>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">7.2 Paso 1: Cargar Contratantes</h3>
-            <ol class="list-decimal list-inside mb-2 space-y-1 text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">7.2 Paso 1: Cargar Contratantes</h3>
+            <ol class="list-decimal list-inside mb-2 space-y-1 theme-text">
                 <li>Hacer clic en "Cargar Contratantes"</li>
                 <li>Seleccionar archivo Excel (.xlsx) o CSV</li>
             </ol>
-            <p class="mb-2 text-gray-300"><strong class="text-white">Formato requerido del archivo:</strong></p>
+            <p class="mb-2 theme-text"><strong class="text-heading">Formato requerido del archivo:</strong></p>
             <table>
                 <thead><tr><th>RUT</th><th>ID</th><th>Nombre</th><th>Email</th></tr></thead>
                 <tbody>
@@ -284,33 +322,33 @@ npm run dev</code></pre>
                     <tr><td>12345678-5</td><td>2</td><td>María José Soto</td><td>maria@ejemplo.com</td></tr>
                 </tbody>
             </table>
-            <p class="mt-2 text-gray-300"><strong class="text-white">Columnas aceptadas (variantes):</strong></p>
-            <ul class="list-disc list-inside text-gray-300">
+            <p class="mt-2 theme-text"><strong class="text-heading">Columnas aceptadas (variantes):</strong></p>
+            <ul class="list-disc list-inside theme-text">
                 <li>RUT: <span class="code-inline">RUT</span>, <span class="code-inline">Rut</span>, <span class="code-inline">RUT CONTRATANTE</span></li>
                 <li>ID: <span class="code-inline">ID</span>, <span class="code-inline">Id</span>, <span class="code-inline">ID CONTRATANTE</span></li>
                 <li>Nombre: <span class="code-inline">NOMBRE</span>, <span class="code-inline">Nombre</span>, <span class="code-inline">NOMBRE CONTRATANTE</span></li>
                 <li>Email: <span class="code-inline">EMAIL</span>, <span class="code-inline">Email</span>, <span class="code-inline">CORREO</span></li>
             </ul>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">7.3 Paso 2: Cargar Recaudaciones</h3>
-            <ol class="list-decimal list-inside mb-2 space-y-1 text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">7.3 Paso 2: Cargar Recaudaciones</h3>
+            <ol class="list-decimal list-inside mb-2 space-y-1 theme-text">
                 <li>Hacer clic en "Cargar Recaudaciones"</li>
                 <li>Seleccionar múltiples archivos Excel</li>
             </ol>
-            <p class="text-gray-300"><strong class="text-white">Convención de nombres requerida:</strong></p>
+            <p class="theme-text"><strong class="text-heading">Convención de nombres requerida:</strong></p>
             <pre><code>REC_{RUT}_{ID}_{NOMBRE}.xlsx</code></pre>
-            <p class="text-gray-300">Ejemplo: <span class="code-inline">REC_154213690_1_FELIPE ANTONIO ROJAS.xlsx</span></p>
+            <p class="theme-text">Ejemplo: <span class="code-inline">REC_154213690_1_FELIPE ANTONIO ROJAS.xlsx</span></p>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">7.4 Paso 3: Validar Datos</h3>
-            <ol class="list-decimal list-inside space-y-1 text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">7.4 Paso 3: Validar Datos</h3>
+            <ol class="list-decimal list-inside space-y-1 theme-text">
                 <li>Hacer clic en "Validar Contratantes"</li>
                 <li>El sistema verifica: campos obligatorios, formato email, sin duplicados</li>
                 <li>Hacer clic en "Validar Recaudaciones"</li>
                 <li>El sistema verifica que los archivos sean legibles</li>
             </ol>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">7.5 Paso 4: Procesar Envío</h3>
-            <ol class="list-decimal list-inside space-y-1 text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">7.5 Paso 4: Procesar Envío</h3>
+            <ol class="list-decimal list-inside space-y-1 theme-text">
                 <li>Hacer clic en "Procesar Envio"</li>
                 <li>El sistema para cada contratante:
                     <ul class="list-disc list-inside ml-4 mt-1">
@@ -324,8 +362,8 @@ npm run dev</code></pre>
                 <li>Se muestra resumen: Total, Enviados, Saltados, Errores</li>
             </ol>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">7.6 Paso 5: Ver Logs</h3>
-            <ul class="list-disc list-inside text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">7.6 Paso 5: Ver Logs</h3>
+            <ul class="list-disc list-inside theme-text">
                 <li>Tabla paginada con los últimos 100 registros</li>
                 <li>Columnas: Fecha/Hora, Contratante, RUT, Estado, Mensaje</li>
                 <li>Estados: <span class="code-inline">enviado</span> | <span class="code-inline">saltado</span> | <span class="code-inline">error</span></li>
@@ -333,10 +371,10 @@ npm run dev</code></pre>
         </section>
 
         <!-- 8. Módulo: Generador de Nombres -->
-        <section id="generador" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="generador" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">8. Módulo: Generador de Nombres</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">8.1 Flujo de Trabajo</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">8.1 Flujo de Trabajo</h3>
             <div class="flowchart">
 ┌─────────────────────┐
 │ 1. Cargar           │
@@ -358,22 +396,22 @@ npm run dev</code></pre>
 │ 4. Descargar Excel  │
 └─────────────────────┘</div>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">8.2 Generación de Nombres</h3>
-            <p class="text-gray-300">El sistema genera nombres en formato:</p>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">8.2 Generación de Nombres</h3>
+            <p class="theme-text">El sistema genera nombres en formato:</p>
             <pre><code>REC_{RUT}_{ID}_{NOMBRE}.XLXS</code></pre>
-            <p class="text-gray-300">Ejemplo: <span class="code-inline">REC_154213690_1_FELIPE ANTONIO ROJAS.XLXS</span></p>
+            <p class="theme-text">Ejemplo: <span class="code-inline">REC_154213690_1_FELIPE ANTONIO ROJAS.XLXS</span></p>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">8.3 Descarga</h3>
-            <p class="text-gray-300">Hacer clic en "Descargar Nombres" para obtener un archivo Excel con la lista generada.</p>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">8.3 Descarga</h3>
+            <p class="theme-text">Hacer clic en "Descargar Nombres" para obtener un archivo Excel con la lista generada.</p>
         </section>
 
         <!-- 9. Formato de Archivos -->
-        <section id="formato" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="formato" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">9. Formato de Archivos</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">9.1 Archivo de Contratantes</h3>
-            <p class="text-gray-300"><strong class="text-white">Formato:</strong> Excel (.xlsx) o CSV</p>
-            <p class="text-gray-300"><strong class="text-white">Codificación:</strong> UTF-8 (con o sin BOM)</p>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">9.1 Archivo de Contratantes</h3>
+            <p class="theme-text"><strong class="text-heading">Formato:</strong> Excel (.xlsx) o CSV</p>
+            <p class="theme-text"><strong class="text-heading">Codificación:</strong> UTF-8 (con o sin BOM)</p>
             <table class="mt-2">
                 <thead><tr><th>Columna</th><th>Obligatoria</th><th>Descripción</th></tr></thead>
                 <tbody>
@@ -384,29 +422,29 @@ npm run dev</code></pre>
                 </tbody>
             </table>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">9.2 Archivos de Recaudación</h3>
-            <p class="text-gray-300"><strong class="text-white">Nombre:</strong> <span class="code-inline">REC_{RUT}_{ID}_{NOMBRE}.xlsx</span></p>
-            <p class="text-gray-300"><strong class="text-white">Contenido:</strong> Datos de recaudación en formato Excel</p>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">9.2 Archivos de Recaudación</h3>
+            <p class="theme-text"><strong class="text-heading">Nombre:</strong> <span class="code-inline">REC_{RUT}_{ID}_{NOMBRE}.xlsx</span></p>
+            <p class="theme-text"><strong class="text-heading">Contenido:</strong> Datos de recaudación en formato Excel</p>
         </section>
 
         <!-- 10. API REST -->
-        <section id="api" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="api" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">10. API REST</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">10.1 Autenticación</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">10.1 Autenticación</h3>
             <table>
                 <thead><tr><th>Método</th><th>Endpoint</th><th>Descripción</th></tr></thead>
                 <tbody>
                     <tr><td>POST</td><td><span class="code-inline">/api/auth/login</span></td><td>Iniciar sesión</td></tr>
                 </tbody>
             </table>
-            <p class="mt-2 text-gray-300"><strong class="text-white">Request:</strong></p>
+            <p class="mt-2 theme-text"><strong class="text-heading">Request:</strong></p>
             <pre><code>{
   "username": "admin",
   "password": "admin123"
 }</code></pre>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">10.2 Sistema</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">10.2 Sistema</h3>
             <table>
                 <thead><tr><th>Método</th><th>Endpoint</th><th>Auth</th><th>Descripción</th></tr></thead>
                 <tbody>
@@ -415,7 +453,7 @@ npm run dev</code></pre>
                 </tbody>
             </table>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">10.3 Procesamiento (Envío de Correos)</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">10.3 Procesamiento (Envío de Correos)</h3>
             <table>
                 <thead><tr><th>Método</th><th>Endpoint</th><th>Descripción</th></tr></thead>
                 <tbody>
@@ -431,7 +469,7 @@ npm run dev</code></pre>
                 </tbody>
             </table>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">10.4 Generador de Nombres</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">10.4 Generador de Nombres</h3>
             <table>
                 <thead><tr><th>Método</th><th>Endpoint</th><th>Descripción</th></tr></thead>
                 <tbody>
@@ -445,15 +483,15 @@ npm run dev</code></pre>
 
             <div class="bg-yellow-900/30 border-l-4 border-primary p-4 mt-4 rounded-r-lg">
                 <p class="font-bold text-primary">Nota:</p>
-                <p class="text-gray-300">Todos los endpoints de procesamiento y generador requieren header: <span class="code-inline">Authorization: Bearer &lt;token_jwt&gt;</span></p>
+                <p class="theme-text">Todos los endpoints de procesamiento y generador requieren header: <span class="code-inline">Authorization: Bearer &lt;token_jwt&gt;</span></p>
             </div>
         </section>
 
         <!-- 11. Solución de Problemas -->
-        <section id="problemas" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="problemas" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">11. Solución de Problemas</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">11.1 Errores Comunes</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">11.1 Errores Comunes</h3>
             <table>
                 <thead><tr><th>Error</th><th>Causa</th><th>Solución</th></tr></thead>
                 <tbody>
@@ -466,7 +504,7 @@ npm run dev</code></pre>
                 </tbody>
             </table>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">11.2 Puerto en Uso</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">11.2 Puerto en Uso</h3>
             <pre><code># Windows
 netstat -ano | findstr :3001
 taskkill /PID &lt;PID&gt; /F
@@ -475,7 +513,7 @@ taskkill /PID &lt;PID&gt; /F
 lsof -i :3001
 kill &lt;PID&gt;</code></pre>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">11.3 Limpiar Instalación</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">11.3 Limpiar Instalación</h3>
             <pre><code># Backend
 cd backend
 rmdir /s /q node_modules
@@ -488,36 +526,36 @@ npm install</code></pre>
         </section>
 
         <!-- 12. Seguridad -->
-        <section id="seguridad" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="seguridad" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">12. Seguridad</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">12.1 Credenciales</h3>
-            <ul class="list-disc list-inside space-y-1 text-gray-300">
-                <li><strong class="text-white">Cambiar contraseña por defecto</strong> en producción</li>
-                <li><strong class="text-white">No compartir</strong> el archivo .env.local</li>
-                <li><strong class="text-white">Usar contraseñas de aplicación</strong> para Gmail</li>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">12.1 Credenciales</h3>
+            <ul class="list-disc list-inside space-y-1 theme-text">
+                <li><strong class="text-heading">Cambiar contraseña por defecto</strong> en producción</li>
+                <li><strong class="text-heading">No compartir</strong> el archivo .env.local</li>
+                <li><strong class="text-heading">Usar contraseñas de aplicación</strong> para Gmail</li>
             </ul>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">12.2 JWT</h3>
-            <ul class="list-disc list-inside space-y-1 text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">12.2 JWT</h3>
+            <ul class="list-disc list-inside space-y-1 theme-text">
                 <li>El token expira según configuración del servidor</li>
                 <li>Almacenar en localStorage (no en cookies)</li>
                 <li>Cerrar sesión al terminar el uso</li>
             </ul>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">12.3 Archivos</h3>
-            <ul class="list-disc list-inside space-y-1 text-gray-300">
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">12.3 Archivos</h3>
+            <ul class="list-disc list-inside space-y-1 theme-text">
                 <li>Los archivos subidos se almacenan temporalmente en <span class="code-inline">backend/temp_uploads/</span></li>
                 <li>Los archivos enviados se mueven a <span class="code-inline">ENVIADOS/</span></li>
-                <li><strong class="text-white">No subir información sensible</strong> en los archivos</li>
+                <li><strong class="text-heading">No subir información sensible</strong> en los archivos</li>
             </ul>
         </section>
 
         <!-- 13. Información Técnica -->
-        <section id="tecnico" class="section bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
+        <section id="tecnico" class="section theme-card bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700">
             <h2 class="text-2xl font-headline font-bold text-primary mb-4">13. Información Técnica</h2>
             
-            <h3 class="text-lg font-headline font-semibold text-white mb-2">13.1 Stack Tecnológico</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mb-2">13.1 Stack Tecnológico</h3>
             <table>
                 <thead><tr><th>Capa</th><th>Tecnología</th></tr></thead>
                 <tbody>
@@ -529,11 +567,11 @@ npm install</code></pre>
                 </tbody>
             </table>
 
-            <h3 class="text-lg font-headline font-semibold text-white mt-4 mb-2">13.2 Dependencias Principales</h3>
+            <h3 class="text-lg font-headline font-semibold text-heading mt-4 mb-2">13.2 Dependencias Principales</h3>
             <div class="grid md:grid-cols-2 gap-4">
                 <div>
-                    <p class="font-bold text-white">Backend:</p>
-                    <ul class="list-disc list-inside text-sm text-gray-300">
+                    <p class="font-bold text-heading">Backend:</p>
+                    <ul class="list-disc list-inside text-sm theme-text">
                         <li>express - Framework web</li>
                         <li>nodemailer - Envío de correos</li>
                         <li>xlsx - Lectura de archivos Excel</li>
@@ -544,8 +582,8 @@ npm install</code></pre>
                     </ul>
                 </div>
                 <div>
-                    <p class="font-bold text-white">Frontend:</p>
-                    <ul class="list-disc list-inside text-sm text-gray-300">
+                    <p class="font-bold text-heading">Frontend:</p>
+                    <ul class="list-disc list-inside text-sm theme-text">
                         <li>react - Framework UI</li>
                         <li>axios - Cliente HTTP</li>
                         <li>tailwindcss - Estilos</li>
@@ -555,7 +593,7 @@ npm install</code></pre>
         </section>
 
         <!-- Footer -->
-        <footer class="bg-gray-800 text-gray-400 p-6 rounded-2xl mt-8 text-center border border-gray-700">
+        <footer class="theme-card bg-gray-800 theme-muted p-6 rounded-2xl mt-8 text-center border border-gray-700">
             <p class="font-headline">Versión del Manual: 1.0</p>
             <p>Última Actualización: Junio 2026</p>
             <p>Autor: Marcelo Javier Ramirez Duran</p>
@@ -563,6 +601,36 @@ npm install</code></pre>
     </main>
 
     <script>
+        // Theme toggle
+        const root = document.documentElement;
+        const btn = document.getElementById('theme-toggle');
+        const iconDark = document.getElementById('icon-dark');
+        const iconLight = document.getElementById('icon-light');
+
+        function applyTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            if (theme === 'light') {
+                iconDark.classList.add('hidden');
+                iconLight.classList.remove('hidden');
+            } else {
+                iconDark.classList.remove('hidden');
+                iconLight.classList.add('hidden');
+            }
+        }
+
+        // Load theme from parent (iframe shares localStorage)
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        applyTheme(savedTheme);
+
+        btn.addEventListener('click', () => {
+            const current = root.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            // Sync with parent if possible
+            try { window.parent.localStorage.setItem('theme', next); } catch(e) {}
+        });
+
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {

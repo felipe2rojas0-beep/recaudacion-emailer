@@ -32,6 +32,17 @@ export const authAPI = {
     api.post('/auth/login', { username, password })
 };
 
+export const configAPI = {
+  get: () => api.get('/config'),
+  save: (config: { provider: string; host: string; port: number; user: string; pass: string; from: string }) =>
+    api.put('/config', config),
+};
+
+export const smtpTestAPI = {
+  test: (config: { host: string; port: number; user: string; pass: string }) =>
+    api.post('/config/test', config),
+};
+
 export const procesamientoAPI = {
   uploadContratantes: (files: FileList) => {
     const formData = new FormData();

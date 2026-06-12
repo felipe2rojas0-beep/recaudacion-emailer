@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
 import procesamientoRoutes from './routes/procesamiento.js';
 import generadorRoutes from './routes/generador.js';
+import configRoutes from './routes/config.js';
 import { authenticateToken } from './middleware/auth.js';
 
 dotenv.config({ path: '.env.local' });
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/procesamiento', procesamientoRoutes);
 app.use('/api/generador', generadorRoutes);
+app.use('/api/config', authenticateToken, configRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });

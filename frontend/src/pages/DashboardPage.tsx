@@ -223,21 +223,21 @@ export default function DashboardPage() {
       case 'enviado': return 'bg-green-500/20 text-green-400';
       case 'saltado': return 'bg-yellow-500/20 text-yellow-400';
       case 'error': return 'bg-red-500/20 text-red-400';
-      default: return 'bg-gray-700/50 text-gray-400';
+      default: return 'tbl-even-alt/50 c-theme-muted';
     }
   };
 
   return (
-    <div className="min-h-full bg-[#1A1A1B] text-white font-body">
+    <div className="min-h-full bg-theme c-theme font-body transition-colors duration-300">
       <div className="max-w-6xl mx-auto p-2 sm:p-4">
-        <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 mb-6 shadow-md">
-          <h1 className="text-center text-lg font-bold font-headline mb-6 border-b border-gray-700 pb-4 text-white">
+        <div className="card-solid rounded-2xl p-6 mb-6 shadow-md">
+          <h1 className="text-center text-lg font-bold font-headline mb-6 border-b bd-theme pb-4 c-theme">
             Sitio Web Gestion Archivos Excel Recaudacion por Contratante
           </h1>
 
-          <div className="bg-gray-800 border border-gray-700 rounded-2xl p-4 mb-4">
+          <div className="card-solid rounded-2xl p-4 mb-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-              <label className="whitespace-nowrap font-medium font-label min-w-0 sm:min-w-[280px] text-gray-400">
+              <label className="whitespace-nowrap font-medium font-label min-w-0 sm:min-w-[280px] c-theme-muted">
                 Directorio del Archivo Excel Datos Contratantes :
               </label>
               <input
@@ -245,7 +245,7 @@ export default function DashboardPage() {
                 value={contratantesFileName || ''}
                 readOnly
                 placeholder="Seleccione archivo..."
-                className="flex-1 px-3 py-2 bg-gray-700 text-white border border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D9C562]"
+                className="flex-1 px-3 py-2 input-solid rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D9C562]"
               />
               <input
                 ref={fileContratantesRef}
@@ -257,23 +257,23 @@ export default function DashboardPage() {
               <button
                 onClick={() => fileContratantesRef.current?.click()}
                 disabled={loading}
-                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap transition-all shadow-lg ${clickedCargarContratantes ? 'bg-[#D9C562] text-[#1A1A1B] shadow-[#D9C562]/50 ring-2 ring-[#D9C562] ring-offset-2 ring-offset-[#1A1A1B]' : 'bg-[#D9C562] text-[#1A1A1B] hover:bg-yellow-500 shadow-[#D9C562]/30 hover:shadow-[#D9C562]/40 hover:scale-[1.02] active:scale-95'}`}
+                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap transition-all shadow-lg ${clickedCargarContratantes ? 'bg-[#D9C562] text-[#1A1A1B] shadow-[#D9C562]/50 ring-2 ring-[#D9C562] ring-offset-2 ring-offset-theme' : 'bg-[#D9C562] text-[#1A1A1B] hover:bg-yellow-500 shadow-[#D9C562]/30 hover:shadow-[#D9C562]/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Boton Carga Archivo excel
               </button>
               <button
                 onClick={() => setShowContratantesModal(true)}
                 disabled={contratantes.length === 0}
-                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap text-white shadow-lg transition-all ${contratantes.length > 0 ? 'bg-[#7A8D6E] hover:bg-green-600 shadow-[#7A8D6E]/40 ring-2 ring-[#7A8D6E] ring-offset-2 ring-offset-[#1A1A1B]' : 'bg-[#7A8D6E] shadow-[#7A8D6E]/30 hover:shadow-[#7A8D6E]/40 hover:scale-[1.02] active:scale-95'}`}
+                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap text-white shadow-lg transition-all ${contratantes.length > 0 ? 'bg-[#7A8D6E] hover:bg-green-600 shadow-[#7A8D6E]/40 ring-2 ring-[#7A8D6E] ring-offset-2 ring-offset-theme' : 'bg-[#7A8D6E] shadow-[#7A8D6E]/30 hover:shadow-[#7A8D6E]/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Ver Contratantes ({contratantes.length})
               </button>
             </div>
           </div>
 
-          <div className="bg-gray-800 border border-gray-700 rounded-2xl p-4 mb-4 relative">
+          <div className="card-solid rounded-2xl p-4 mb-4 relative">
             <div className="flex items-center gap-4">
-              <label className="whitespace-nowrap font-medium font-label min-w-[280px] text-gray-400">
+              <label className="whitespace-nowrap font-medium font-label min-w-[280px] c-theme-muted">
                 Directorio de los Archivos Excel recaudaciones :
               </label>
               <input
@@ -281,7 +281,7 @@ export default function DashboardPage() {
                 value={recaudacionesDirName ? `${recaudacionesDirName} (${recaudacionesFileCount} archivos)` : ''}
                 readOnly
                 placeholder="Seleccione directorio..."
-                className="flex-1 px-3 py-2 bg-gray-700 text-white border border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D9C562]"
+                className="flex-1 px-3 py-2 input-solid rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D9C562]"
               />
               <input
                 ref={fileRecaudacionesRef}
@@ -297,14 +297,14 @@ export default function DashboardPage() {
               <button
                 onClick={() => fileRecaudacionesRef.current?.click()}
                 disabled={loading}
-                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap transition-all shadow-lg ${clickedCargarRecaudaciones ? 'bg-[#D9C562] text-[#1A1A1B] shadow-[#D9C562]/50 ring-2 ring-[#D9C562] ring-offset-2 ring-offset-[#1A1A1B]' : 'bg-[#D9C562] text-[#1A1A1B] hover:bg-yellow-500 shadow-[#D9C562]/30 hover:shadow-[#D9C562]/40 hover:scale-[1.02] active:scale-95'}`}
+                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap transition-all shadow-lg ${clickedCargarRecaudaciones ? 'bg-[#D9C562] text-[#1A1A1B] shadow-[#D9C562]/50 ring-2 ring-[#D9C562] ring-offset-2 ring-offset-theme' : 'bg-[#D9C562] text-[#1A1A1B] hover:bg-yellow-500 shadow-[#D9C562]/30 hover:shadow-[#D9C562]/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Boton Carga Directorio
               </button>
               {recaudacionesFileList.length > 0 && (
                 <button
                   onClick={() => setShowFilesModal(true)}
-                  className="px-6 py-3 bg-[#7A8D6E] hover:bg-green-600 rounded-xl font-headline font-semibold text-sm whitespace-nowrap text-white shadow-lg shadow-[#7A8D6E]/40 ring-2 ring-[#7A8D6E] ring-offset-2 ring-offset-[#1A1A1B] transition-all"
+                  className="px-6 py-3 bg-[#7A8D6E] hover:bg-green-600 rounded-xl font-headline font-semibold text-sm whitespace-nowrap text-white shadow-lg shadow-[#7A8D6E]/40 ring-2 ring-[#7A8D6E] ring-offset-2 ring-offset-theme transition-all"
                 >
                   Ver Archivos ({recaudacionesFileCount})
                 </button>
@@ -312,26 +312,26 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="bg-gray-800 border border-gray-700 rounded-2xl p-4">
+          <div className="card-solid rounded-2xl p-4">
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6">
               <button
                 onClick={handleValidarContratantes}
                 disabled={loading || !validContratantes}
-                className={`px-6 py-3.5 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedValidarContratantes ? 'bg-[#7A8D6E] text-white shadow-[#7A8D6E]/50 ring-2 ring-[#7A8D6E] ring-offset-2 ring-offset-[#1A1A1B]' : 'bg-[#7A8D6E] text-white hover:bg-green-600 shadow-[#7A8D6E]/30 hover:shadow-[#7A8D6E]/40 hover:scale-[1.02] active:scale-95'}`}
+                className={`px-6 py-3.5 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedValidarContratantes ? 'bg-[#7A8D6E] text-white shadow-[#7A8D6E]/50 ring-2 ring-[#7A8D6E] ring-offset-2 ring-offset-theme' : 'bg-[#7A8D6E] text-white hover:bg-green-600 shadow-[#7A8D6E]/30 hover:shadow-[#7A8D6E]/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Boton Valida Archivos Excel Contratantes
               </button>
               <button
                 onClick={handleValidarRecaudaciones}
                 disabled={loading || !validRecaudaciones}
-                className={`px-6 py-3.5 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedValidarRecaudaciones ? 'bg-[#7A8D6E] text-white shadow-[#7A8D6E]/50 ring-2 ring-[#7A8D6E] ring-offset-2 ring-offset-[#1A1A1B]' : 'bg-[#7A8D6E] text-white hover:bg-green-600 shadow-[#7A8D6E]/30 hover:shadow-[#7A8D6E]/40 hover:scale-[1.02] active:scale-95'}`}
+                className={`px-6 py-3.5 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedValidarRecaudaciones ? 'bg-[#7A8D6E] text-white shadow-[#7A8D6E]/50 ring-2 ring-[#7A8D6E] ring-offset-2 ring-offset-theme' : 'bg-[#7A8D6E] text-white hover:bg-green-600 shadow-[#7A8D6E]/30 hover:shadow-[#7A8D6E]/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Boton Valida Archivos Excel Recaudaciones
               </button>
               <button
                 onClick={handleEnviarMail}
                 disabled={processing || !validatedContratantes || !validatedRecaudaciones || contratantes.length === 0}
-                className={`px-6 py-3.5 rounded-xl font-headline font-bold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedEnviarMail ? 'bg-[#D9C562] text-[#1A1A1B] shadow-[#D9C562]/50 ring-2 ring-[#D9C562] ring-offset-2 ring-offset-[#1A1A1B]' : 'bg-[#D9C562] text-[#1A1A1B] hover:bg-yellow-500 shadow-[#D9C562]/30 hover:shadow-[#D9C562]/40 hover:scale-[1.02] active:scale-95'}`}
+                className={`px-6 py-3.5 rounded-xl font-headline font-bold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedEnviarMail ? 'bg-[#D9C562] text-[#1A1A1B] shadow-[#D9C562]/50 ring-2 ring-[#D9C562] ring-offset-2 ring-offset-theme' : 'bg-[#D9C562] text-[#1A1A1B] hover:bg-yellow-500 shadow-[#D9C562]/30 hover:shadow-[#D9C562]/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 {processing ? 'Procesando...' : 'Boton Envio Mail Excel Recaudacion por Contratante'}
               </button>
@@ -353,8 +353,8 @@ export default function DashboardPage() {
         )}
 
         {result && (
-          <div className="bg-gray-800 border border-gray-700 rounded-2xl p-4 mb-4 shadow-md">
-            <h2 className="font-bold font-headline mb-3 border-b border-gray-700 pb-2 text-white">Resultado del Proceso</h2>
+          <div className="card-solid rounded-2xl p-4 mb-4 shadow-md">
+            <h2 className="font-bold font-headline mb-3 border-b bd-theme pb-2 c-theme">Resultado del Proceso</h2>
             <div className="grid grid-cols-4 gap-4 text-center mb-4">
               <div className="bg-[#D9C562]/20 p-3 rounded-2xl">
                 <div className="text-2xl font-bold font-headline text-yellow-400">{result.total}</div>
@@ -382,24 +382,24 @@ export default function DashboardPage() {
           const paginatedLogs = logs.slice(startIdx, startIdx + rowsPerPage);
 
           return (
-            <div className="bg-gray-800 border border-gray-700 rounded-2xl p-4 shadow-md">
-              <div className="flex justify-between items-center mb-3 border-b border-gray-700 pb-3">
-                <h2 className="font-bold font-headline text-white">Historial de Envíos</h2>
+            <div className="card-solid rounded-2xl p-4 shadow-md">
+              <div className="flex justify-between items-center mb-3 border-b bd-theme pb-3">
+                <h2 className="font-bold font-headline c-theme">Historial de Envíos</h2>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-label text-gray-400">Filas por página:</span>
+                  <span className="text-sm font-label c-theme-muted">Filas por página:</span>
                   <select
                     value={rowsPerPage}
                     onChange={(e) => {
                       setRowsPerPage(Number(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="bg-gray-700 border border-gray-600 rounded-xl px-2 py-1 text-sm text-white"
+                    className="tbl-even-alt border bd-theme-light rounded-xl px-2 py-1 text-sm c-theme"
                   >
                     <option value={20}>20</option>
                     <option value={50}>50</option>
                     <option value={100}>100</option>
                   </select>
-                  <span className="text-sm font-label text-gray-400">
+                  <span className="text-sm font-label c-theme-muted">
                     Mostrando {startIdx + 1}-{Math.min(startIdx + rowsPerPage, logs.length)} de {logs.length}
                   </span>
                 </div>
@@ -407,7 +407,7 @@ export default function DashboardPage() {
               <div className="overflow-y-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-gray-700 text-white">
+                    <tr className="tbl-th">
                       <th className="text-left py-2 px-2">Fecha</th>
                       <th className="text-left py-2 px-2">Contratante</th>
                       <th className="text-left py-2 px-2">RUT</th>
@@ -417,7 +417,7 @@ export default function DashboardPage() {
                   </thead>
                   <tbody>
                     {paginatedLogs.map((log, i) => (
-                      <tr key={startIdx + i} className={`border-b border-gray-700 ${i % 2 === 0 ? 'bg-gray-800' : 'bg-gray-750'} hover:bg-gray-700`}>
+                      <tr key={startIdx + i} className={`border-b bd-theme ${i % 2 === 0 ? 'tbl-even' : 'tbl-even-alt/50'} hover:tbl-even-alt`}>
                         <td className="py-1 px-2">
                           {new Date(log.timestamp).toLocaleString('es-CL')}
                         </td>
@@ -428,18 +428,18 @@ export default function DashboardPage() {
                             {log.status}
                           </span>
                         </td>
-                        <td className="py-1 px-2 text-gray-400">{log.mensaje}</td>
+                        <td className="py-1 px-2 c-theme-muted">{log.mensaje}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
               {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-gray-700">
+                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t bd-theme">
                   <button
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-xl text-sm font-headline font-semibold text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="px-4 py-2 tbl-even-alt hover:tbl-even-hover rounded-xl text-sm font-headline font-semibold c-theme-sec disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     ← Anterior
                   </button>
@@ -450,7 +450,7 @@ export default function DashboardPage() {
                       className={`px-4 py-2 rounded-xl text-sm font-headline font-semibold transition-all shadow-lg ${
                         currentPage === page
                           ? 'bg-[#D9C562] text-[#1A1A1B] shadow-[#D9C562]/30'
-                          : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                          : 'tbl-even-alt hover:tbl-even-hover c-theme-sec'
                       }`}
                     >
                       {page}
@@ -459,7 +459,7 @@ export default function DashboardPage() {
                   <button
                     onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-xl text-sm font-headline font-semibold text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="px-4 py-2 tbl-even-alt hover:tbl-even-hover rounded-xl text-sm font-headline font-semibold c-theme-sec disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     Siguiente →
                   </button>
@@ -485,60 +485,60 @@ export default function DashboardPage() {
         const paginatedFiles = recaudacionesFileList.slice(startFileIdx, startFileIdx + rowsPerPage);
 
         return (
-          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-            <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col shadow-2xl">
-              <div className="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
-                <h2 className="text-lg font-bold font-headline text-white">Archivos en Carpeta Pendiente</h2>
+          <div className="fixed inset-0 modal-backdrop flex items-center justify-center z-50">
+            <div className="modal-content rounded-2xl p-6 w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col shadow-2xl">
+              <div className="flex justify-between items-center mb-4 pb-3" style={{ borderBottom: '1px solid var(--border-color)' }}>
+                <h2 className="text-lg font-bold font-headline c-theme">Archivos en Carpeta Pendiente</h2>
                 <button
                   onClick={() => setShowFilesModal(false)}
-                  className="text-gray-400 hover:text-red-400 text-2xl"
+                  className="modal-close text-2xl font-bold leading-none"
                 >
                   ×
                 </button>
               </div>
               <div className="flex justify-between items-center mb-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-label text-gray-400">Filas por página:</span>
+                  <span className="text-sm font-label c-theme-muted">Filas por página:</span>
                   <select
                     value={rowsPerPage}
                     onChange={(e) => {
                       setRowsPerPage(Number(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="bg-gray-700 border border-gray-600 rounded-xl px-2 py-1 text-sm text-white"
+                    className="modal-select rounded-xl px-2 py-1 text-sm font-body"
                   >
                     <option value={20}>20</option>
                     <option value={50}>50</option>
                     <option value={100}>100</option>
                   </select>
                 </div>
-                <span className="text-sm font-label text-gray-400">
+                <span className="text-sm font-label c-theme-muted">
                   Mostrando {startFileIdx + 1}-{Math.min(startFileIdx + rowsPerPage, recaudacionesFileList.length)} de {recaudacionesFileList.length}
                 </span>
               </div>
               <div className="flex-1 overflow-y-auto">
                 {recaudacionesFileList.length === 0 ? (
-                  <p className="text-gray-500 text-center py-4">No hay archivos cargados</p>
+                  <p className="modal-empty text-center py-4">No hay archivos cargados</p>
                 ) : (
                   <ul className="space-y-2">
                     {paginatedFiles.map((fileName, i) => (
                       <li
                         key={startFileIdx + i}
-                        className="flex items-center gap-3 p-3 bg-gray-750 rounded-xl border border-gray-700"
+                        className="modal-file-item flex items-center gap-3 p-3 rounded-xl"
                       >
-                        <span className="text-[#D9C562]">📄</span>
-                        <span className="text-sm text-gray-300">{fileName}</span>
+                        <span className="text-[#D9C562] text-lg">📄</span>
+                        <span className="text-sm c-theme-sec">{fileName}</span>
                       </li>
                     ))}
                   </ul>
                 )}
               </div>
               {totalFilesPages > 1 && (
-                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-gray-700">
+                <div className="flex justify-center items-center gap-2 mt-3 pt-3" style={{ borderTop: '1px solid var(--border-color)' }}>
                   <button
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-xl text-sm font-headline font-semibold text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="modal-page-btn px-4 py-2 rounded-xl text-sm font-headline font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     ← Anterior
                   </button>
@@ -547,9 +547,7 @@ export default function DashboardPage() {
                       key={page}
                       onClick={() => setCurrentPage(page)}
                       className={`px-4 py-2 rounded-xl text-sm font-headline font-semibold transition-all shadow-lg ${
-                        currentPage === page
-                          ? 'bg-[#D9C562] text-[#1A1A1B] shadow-[#D9C562]/30'
-                          : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                        currentPage === page ? 'modal-page-btn-active' : 'modal-page-btn'
                       }`}
                     >
                       {page}
@@ -558,18 +556,18 @@ export default function DashboardPage() {
                   <button
                     onClick={() => setCurrentPage(p => Math.min(totalFilesPages, p + 1))}
                     disabled={currentPage === totalFilesPages}
-                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-xl text-sm font-headline font-semibold text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="modal-page-btn px-4 py-2 rounded-xl text-sm font-headline font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     Siguiente →
                   </button>
                 </div>
               )}
-              <div className="mt-4 text-center text-sm font-label text-gray-400">
+              <div className="mt-4 text-center text-sm font-label c-theme-muted">
                 Total: {recaudacionesFileCount} archivo(s)
               </div>
               <button
                 onClick={() => setShowFilesModal(false)}
-                className="mt-4 w-full py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-headline font-semibold text-gray-300 transition-all shadow-lg hover:shadow-gray-700/30"
+                className="modal-footer-btn mt-4 w-full py-3 rounded-xl font-headline font-semibold transition-all shadow-lg"
               >
                 Cerrar
               </button>
@@ -584,44 +582,44 @@ export default function DashboardPage() {
         const paginatedContratantes = contratantes.slice(startContratanteIdx, startContratanteIdx + rowsPerPage);
 
         return (
-          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-            <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col shadow-2xl">
-              <div className="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
-                <h2 className="text-lg font-bold font-headline text-white">Contratantes Cargados ({contratantes.length})</h2>
+          <div className="fixed inset-0 modal-backdrop flex items-center justify-center z-50">
+            <div className="modal-content rounded-2xl p-6 w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col shadow-2xl">
+              <div className="flex justify-between items-center mb-4 pb-3" style={{ borderBottom: '1px solid var(--border-color)' }}>
+                <h2 className="text-lg font-bold font-headline c-theme">Contratantes Cargados ({contratantes.length})</h2>
                 <button
                   onClick={() => setShowContratantesModal(false)}
-                  className="text-gray-400 hover:text-red-400 text-2xl"
+                  className="modal-close text-2xl font-bold leading-none"
                 >
                   ×
                 </button>
               </div>
               <div className="flex justify-between items-center mb-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-label text-gray-400">Filas por página:</span>
+                  <span className="text-sm font-label c-theme-muted">Filas por página:</span>
                   <select
                     value={rowsPerPage}
                     onChange={(e) => {
                       setRowsPerPage(Number(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="bg-gray-700 border border-gray-600 rounded-xl px-2 py-1 text-sm text-white"
+                    className="modal-select rounded-xl px-2 py-1 text-sm font-body"
                   >
                     <option value={20}>20</option>
                     <option value={50}>50</option>
                     <option value={100}>100</option>
                   </select>
                 </div>
-                <span className="text-sm font-label text-gray-400">
+                <span className="text-sm font-label c-theme-muted">
                   Mostrando {startContratanteIdx + 1}-{Math.min(startContratanteIdx + rowsPerPage, contratantes.length)} de {contratantes.length}
                 </span>
               </div>
               <div className="flex-1 overflow-y-auto">
                 {contratantes.length === 0 ? (
-                  <p className="text-gray-500 text-center py-4">No hay contratantes cargados</p>
+                  <p className="modal-empty text-center py-4">No hay contratantes cargados</p>
                 ) : (
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-gray-700 text-white">
+                      <tr className="modal-th">
                         <th className="text-left py-2 px-2">Nombre</th>
                         <th className="text-left py-2 px-2">RUT</th>
                         <th className="text-left py-2 px-2">ID</th>
@@ -630,11 +628,11 @@ export default function DashboardPage() {
                     </thead>
                     <tbody>
                       {paginatedContratantes.map((c, i) => (
-                        <tr key={startContratanteIdx + i} className={`border-b border-gray-700 ${i % 2 === 0 ? 'bg-gray-800' : 'bg-gray-750'} hover:bg-gray-700`}>
-                          <td className="py-1 px-2">{c.nombre}</td>
-                          <td className="py-1 px-2">{c.rut}</td>
-                          <td className="py-1 px-2">{c.id}</td>
-                          <td className="py-1 px-2">{c.email}</td>
+                        <tr key={startContratanteIdx + i} className={`modal-tr-hover ${i % 2 === 0 ? 'modal-tr-even' : 'modal-tr-odd'}`} style={{ borderBottom: '1px solid var(--border-color)' }}>
+                          <td className="py-2 px-2 c-theme-sec">{c.nombre}</td>
+                          <td className="py-2 px-2 c-theme-sec">{c.rut}</td>
+                          <td className="py-2 px-2 c-theme-sec">{c.id}</td>
+                          <td className="py-2 px-2 c-theme-sec">{c.email}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -642,11 +640,11 @@ export default function DashboardPage() {
                 )}
               </div>
               {totalContratantesPages > 1 && (
-                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-gray-700">
+                <div className="flex justify-center items-center gap-2 mt-3 pt-3" style={{ borderTop: '1px solid var(--border-color)' }}>
                   <button
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-xl text-sm font-headline font-semibold text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="modal-page-btn px-4 py-2 rounded-xl text-sm font-headline font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     ← Anterior
                   </button>
@@ -655,9 +653,7 @@ export default function DashboardPage() {
                       key={page}
                       onClick={() => setCurrentPage(page)}
                       className={`px-4 py-2 rounded-xl text-sm font-headline font-semibold transition-all shadow-lg ${
-                        currentPage === page
-                          ? 'bg-[#D9C562] text-[#1A1A1B] shadow-[#D9C562]/30'
-                          : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                        currentPage === page ? 'modal-page-btn-active' : 'modal-page-btn'
                       }`}
                     >
                       {page}
@@ -666,18 +662,18 @@ export default function DashboardPage() {
                   <button
                     onClick={() => setCurrentPage(p => Math.min(totalContratantesPages, p + 1))}
                     disabled={currentPage === totalContratantesPages}
-                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-xl text-sm font-headline font-semibold text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="modal-page-btn px-4 py-2 rounded-xl text-sm font-headline font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     Siguiente →
                   </button>
                 </div>
               )}
-              <div className="mt-4 text-center text-sm font-label text-gray-400">
+              <div className="mt-4 text-center text-sm font-label c-theme-muted">
                 Total: {contratantes.length} contratante(s)
               </div>
               <button
                 onClick={() => setShowContratantesModal(false)}
-                className="mt-4 w-full py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-headline font-semibold text-gray-300 transition-all shadow-lg hover:shadow-gray-700/30"
+                className="modal-footer-btn mt-4 w-full py-3 rounded-xl font-headline font-semibold transition-all shadow-lg"
               >
                 Cerrar
               </button>
