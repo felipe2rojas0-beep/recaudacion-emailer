@@ -36,6 +36,8 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
   const [clickedEnviarMail, setClickedEnviarMail] = useState(false);
   const [clickedCargarContratantes, setClickedCargarContratantes] = useState(false);
   const [clickedCargarRecaudaciones, setClickedCargarRecaudaciones] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [logs, setLogs] = useState<LogEntry[]>([]);
@@ -375,41 +377,98 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
           </div>
         )}
 
-        {logs.length > 0 && (
-          <div className="border border-gray-600 rounded-lg p-4">
-            <h2 className="font-bold mb-3 border-b border-gray-600 pb-2">Historial de Envíos</h2>
-            <div className="max-h-64 overflow-y-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-gray-600">
-                    <th className="text-left py-2 px-2">Fecha</th>
-                    <th className="text-left py-2 px-2">Contratante</th>
-                    <th className="text-left py-2 px-2">RUT</th>
-                    <th className="text-left py-2 px-2">Estado</th>
-                    <th className="text-left py-2 px-2">Mensaje</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {logs.map((log, i) => (
-                    <tr key={i} className="border-b border-gray-700 hover:bg-gray-800">
-                      <td className="py-1 px-2">
-                        {new Date(log.timestamp).toLocaleString('es-CL')}
-                      </td>
-                      <td className="py-1 px-2">{log.contratante}</td>
-                      <td className="py-1 px-2">{log.rut}</td>
-                      <td className="py-1 px-2">
-                        <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(log.status)}`}>
-                          {log.status}
-                        </span>
-                      </td>
-                      <td className="py-1 px-2 text-gray-400">{log.mensaje}</td>
+        {logs.length > 0 && (() => {
+          const totalPages = Math.ceil(logs.length / rowsPerPage);
+          const startIdx = (currentPage - 1) * rowsPerPage;
+          const paginatedLogs = logs.slice(startIdx, startIdx + rowsPerPage);
+
+          return (
+            <div className="border border-gray-600 rounded-lg p-4">
+              <div className="flex justify-between items-center mb-3 border-b border-gray-600 pb-3">
+                <h2 className="font-bold">Historial de Envíos</h2>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-gray-400">Filas por página:</span>
+                  <select
+                    value={rowsPerPage}
+                    onChange={(e) => {
+                      setRowsPerPage(Number(e.target.value));
+                      setCurrentPage(1);
+                    }}
+                    className="bg-gray-700 border border-gray-500 rounded px-2 py-1 text-sm text-white"
+                  >
+                    <option value={20}>20</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </select>
+                  <span className="text-sm text-gray-400">
+                    Mostrando {startIdx + 1}-{Math.min(startIdx + rowsPerPage, logs.length)} de {logs.length}
+                  </span>
+                </div>
+              </div>
+              <div className="overflow-y-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-600">
+                      <th className="text-left py-2 px-2">Fecha</th>
+                      <th className="text-left py-2 px-2">Contratante</th>
+                      <th className="text-left py-2 px-2">RUT</th>
+                      <th className="text-left py-2 px-2">Estado</th>
+                      <th className="text-left py-2 px-2">Mensaje</th>
                     </tr>
+                  </thead>
+                  <tbody>
+                    {paginatedLogs.map((log, i) => (
+                      <tr key={startIdx + i} className="border-b border-gray-700 hover:bg-gray-800">
+                        <td className="py-1 px-2">
+                          {new Date(log.timestamp).toLocaleString('es-CL')}
+                        </td>
+                        <td className="py-1 px-2">{log.contratante}</td>
+                        <td className="py-1 px-2">{log.rut}</td>
+                        <td className="py-1 px-2">
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(log.status)}`}>
+                            {log.status}
+                          </span>
+                        </td>
+                        <td className="py-1 px-2 text-gray-400">{log.mensaje}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-gray-600">
+                  <button
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="px-3 py-1 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    ← Anterior
+                  </button>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`px-3 py-1 border rounded text-sm ${
+                        currentPage === page
+                          ? 'bg-blue-700 border-blue-500 text-white'
+                          : 'bg-gray-700 hover:bg-gray-600 border-gray-500'
+                      }`}
+                    >
+                      {page}
+                    </button>
                   ))}
-                </tbody>
-              </table>
+                  <button
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="px-3 py-1 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Siguiente →
+                  </button>
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         <div className="mt-4 flex justify-between">
           <button
