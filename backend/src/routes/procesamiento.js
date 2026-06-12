@@ -79,7 +79,8 @@ const parseExcelBuffer = (buffer, originalname) => {
 
     const headerLine = parseCSVLine(lines[0]);
     const delimiter = headerLine.length > 1 ? (lines[0].includes(';') ? ';' : ',') : ',';
-    const headers = headerLine.length > 1 ? headerLine : lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+    const headers = (headerLine.length > 1 ? headerLine : lines[0].split(',').map(h => h.trim().replace(/"/g, '')))
+      .map(h => h.replace(/[\uFEFF\u00A0\u200B-\u200D\u2060-\u206F\u0000-\u001F]/g, '').trim());
 
     const data = [];
     for (let i = 1; i < lines.length; i++) {
@@ -87,7 +88,10 @@ const parseExcelBuffer = (buffer, originalname) => {
         ? parseCSVLine(lines[i])
         : lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
       const row = {};
-      headers.forEach((h, idx) => { row[h] = values[idx] || ''; });
+      headers.forEach((h, idx) => {
+        const val = values[idx] || '';
+        row[h] = val.replace(/[\uFEFF\u00A0\u200B-\u200D\u2060-\u206F]/g, '').trim();
+      });
       data.push(row);
     }
     return data;
