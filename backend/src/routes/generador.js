@@ -196,6 +196,33 @@ router.post('/generate-names', (req, res) => {
   }
 });
 
+router.post('/download-names', (req, res) => {
+  try {
+    if (generatedNames.length === 0) {
+      return res.status(400).json({ error: 'No hay nombres generados para descargar' });
+    }
+
+    const wsData = [['N°', 'Nombre Archivo']];
+    generatedNames.forEach((name, i) => {
+      wsData.push([i + 1, name]);
+    });
+
+    const ws = xlsx.utils.aoa_to_sheet(wsData);
+    ws['!cols'] = [{ wch: 5 }, { wch: 60 }];
+
+    const wb = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(wb, ws, 'Nombres Generados');
+
+    const buffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
+
+    res.setHeader('Content-Disposition', 'attachment; filename=Nombres_Generados.xlsx');
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.send(Buffer.from(buffer));
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.post('/reset', (req, res) => {
   try {
     loadedContratantes = [];

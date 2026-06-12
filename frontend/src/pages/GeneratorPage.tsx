@@ -121,6 +121,32 @@ export default function GeneratorPage({ onLogout }: GeneratorPageProps) {
     }
   };
 
+  const handleDescargarNombres = async () => {
+    if (generatedNames.length === 0) {
+      setError('No hay nombres generados para descargar');
+      return;
+    }
+    setLoading(true);
+    setError('');
+    try {
+      const response = await api.post('/generador/download-names', null, {
+        responseType: 'blob'
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'Nombres_Generados.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err: any) {
+      setError('Error al descargar nombres');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleReset = async () => {
     if (!confirm('¿Está seguro de reiniciar?')) return;
     try {
@@ -223,10 +249,19 @@ export default function GeneratorPage({ onLogout }: GeneratorPageProps) {
           </div>
         )}
 
-        <div className="border border-gray-600 rounded-lg p-4">
-          <h2 className="font-bold mb-3 border-b border-gray-600 pb-2 text-center">
-            Lista de Nombres de Archivo Excel Recaudacion por Contratantes Cargados
-          </h2>
+          <div className="border border-gray-600 rounded-lg p-4">
+            <div className="flex justify-between items-center mb-3 border-b border-gray-600 pb-3">
+              <h2 className="font-bold text-center flex-1">
+                Lista de Nombres de Archivo Excel Recaudacion por Contratantes Cargados
+              </h2>
+              <button
+                onClick={handleDescargarNombres}
+                disabled={generatedNames.length === 0 || loading}
+                className="px-4 py-2 bg-green-700 hover:bg-green-600 border border-green-500 rounded font-medium disabled:opacity-50 whitespace-nowrap text-sm"
+              >
+                Descargar Lista Excel
+              </button>
+            </div>
           <div className="max-h-64 overflow-y-auto">
             {generatedNames.length === 0 ? (
               <p className="text-gray-400 text-center py-4">No hay nombres generados</p>
