@@ -46,11 +46,11 @@ export default function App() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-tertiary">
-      <nav className="bg-tertiary border-b border-neutral-700 px-6 py-3 flex items-center gap-4 flex-shrink-0">
+    <div className="flex flex-col h-screen bg-neutral">
+      <nav className="bg-neutral border-b border-gray-700 px-6 py-3 flex items-center gap-4 flex-shrink-0">
         <div className="flex items-center gap-2 mr-6">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">R</span>
+            <span className="text-neutral font-bold text-sm">R</span>
           </div>
           <span className="text-white font-headline font-bold text-lg hidden sm:inline">Recaudación</span>
         </div>
@@ -60,8 +60,8 @@ export default function App() {
             onClick={() => setCurrentPage('home')}
             className={`px-5 py-2.5 rounded-xl font-headline font-semibold text-sm transition-all shadow-lg ${
               currentPage === 'home'
-                ? 'bg-primary text-white shadow-primary/30 shadow-lg scale-105'
-                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white hover:shadow-neutral-700/30'
+                ? 'bg-primary text-neutral shadow-primary/30 shadow-lg scale-105'
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white hover:shadow-gray-600/30'
             }`}
           >
             HOME
@@ -70,8 +70,8 @@ export default function App() {
             onClick={() => setCurrentPage('dashboard')}
             className={`px-5 py-2.5 rounded-xl font-headline font-semibold text-sm transition-all shadow-lg ${
               currentPage === 'dashboard'
-                ? 'bg-primary text-white shadow-primary/30 shadow-lg scale-105'
-                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white hover:shadow-neutral-700/30'
+                ? 'bg-primary text-neutral shadow-primary/30 shadow-lg scale-105'
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white hover:shadow-gray-600/30'
             }`}
           >
             Envío de Correos
@@ -80,8 +80,8 @@ export default function App() {
             onClick={() => setCurrentPage('generador')}
             className={`px-5 py-2.5 rounded-xl font-headline font-semibold text-sm transition-all shadow-lg ${
               currentPage === 'generador'
-                ? 'bg-primary text-white shadow-primary/30 shadow-lg scale-105'
-                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white hover:shadow-neutral-700/30'
+                ? 'bg-primary text-neutral shadow-primary/30 shadow-lg scale-105'
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white hover:shadow-gray-600/30'
             }`}
           >
             Generador de Nombres
@@ -98,14 +98,14 @@ export default function App() {
         </button>
       </nav>
 
-      <main className="flex-1 overflow-y-auto bg-tertiary">
+      <main className="flex-1 overflow-y-auto bg-neutral">
         {currentPage === 'home' && <HomePage />}
         {currentPage === 'dashboard' && <DashboardPage />}
         {currentPage === 'generador' && <GeneratorPage />}
       </main>
 
-      <footer className="bg-tertiary border-t border-neutral-700 px-6 py-3 text-right flex-shrink-0">
-        <span className="text-xs sm:text-sm text-neutral-400 font-body">Creado por: Marcelo Javier Ramirez Duran</span>
+      <footer className="bg-neutral border-t border-gray-700 px-6 py-3 text-right flex-shrink-0">
+        <span className="text-xs sm:text-sm text-gray-400 font-body">Creado por: Marcelo Javier Ramirez Duran</span>
       </footer>
     </div>
   );

@@ -7,15 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#FF8C00',
-        secondary: '#987BFF',
-        tertiary: '#1A2233',
-        neutral: '#000000',
+        primary: '#D9C562',
+        secondary: '#7A8D6E',
+        tertiary: '#8A8A8A',
+        neutral: '#1A1A1B',
       },
       fontFamily: {
         headline: ['"Hanken Grotesk"', 'sans-serif'],
         body: ['"Hanken Grotesk"', 'sans-serif'],
-        label: ['"JetBrains Mono"', 'monospace'],
+        label: ['"Hanken Grotesk"', 'sans-serif'],
       },
     },
   },
