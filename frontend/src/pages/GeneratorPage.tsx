@@ -213,14 +213,14 @@ export default function GeneratorPage() {
               <button
                 onClick={() => fileContratantesRef.current?.click()}
                 disabled={loading}
-                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap transition-all shadow-lg ${clickedCargarContratantes ? 'bg-primary text-white shadow-primary/40' : 'bg-primary text-white hover:bg-orange-600 shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95'}`}
+                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap transition-all shadow-lg ${clickedCargarContratantes ? 'bg-primary text-white shadow-primary/50 ring-2 ring-primary ring-offset-2 ring-offset-tertiary' : 'bg-primary text-white hover:bg-orange-600 shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Boton Carga Archivo excel
               </button>
               <button
                 onClick={() => setShowContratantesModal(true)}
                 disabled={!archivoCargado}
-                className="px-6 py-3 bg-secondary hover:bg-purple-600 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap text-white shadow-lg shadow-secondary/30 hover:shadow-secondary/40 hover:scale-[1.02] active:scale-95 transition-all"
+                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap text-white shadow-lg transition-all ${archivoCargado ? 'bg-secondary hover:bg-purple-600 shadow-secondary/40 ring-2 ring-secondary ring-offset-2 ring-offset-tertiary' : 'bg-secondary shadow-secondary/30 hover:shadow-secondary/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Ver Contratantes ({contratantes.length})
               </button>
@@ -235,14 +235,14 @@ export default function GeneratorPage() {
               <button
                 onClick={handleValidarContratantes}
                 disabled={loading || !validContratantes}
-                className={`px-6 py-3.5 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedValidarContratantes ? 'bg-green-600 text-white shadow-green-600/40' : 'bg-green-600 text-white hover:bg-green-500 shadow-green-600/30 hover:shadow-green-500/40 hover:scale-[1.02] active:scale-95'}`}
+                className={`px-6 py-3.5 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedValidarContratantes ? 'bg-green-600 text-white shadow-green-600/50 ring-2 ring-green-500 ring-offset-2 ring-offset-tertiary' : 'bg-green-600 text-white hover:bg-green-500 shadow-green-600/30 hover:shadow-green-500/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Boton Valida Archivos Excel Contratantes
               </button>
               <button
                 onClick={handleGenerarNombres}
                 disabled={loading || !validatedContratantes}
-                className={`px-6 py-3.5 rounded-xl font-headline font-bold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedGenerarNombres ? 'bg-primary text-white shadow-primary/40' : 'bg-primary text-white hover:bg-orange-600 shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95'}`}
+                className={`px-6 py-3.5 rounded-xl font-headline font-bold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedGenerarNombres ? 'bg-primary text-white shadow-primary/50 ring-2 ring-primary ring-offset-2 ring-offset-tertiary' : 'bg-primary text-white hover:bg-orange-600 shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Boton Genera Nombre Para Archivos Excel Recaudacion
               </button>
@@ -271,7 +271,7 @@ export default function GeneratorPage() {
               <button
                 onClick={handleDescargarNombres}
                 disabled={generatedNames.length === 0 || loading}
-                className="px-6 py-3 bg-secondary hover:bg-purple-600 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap text-white shadow-lg shadow-secondary/30 hover:shadow-secondary/40 hover:scale-[1.02] active:scale-95 transition-all"
+                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap text-white shadow-lg transition-all ${generatedNames.length > 0 ? 'bg-secondary hover:bg-purple-600 shadow-secondary/40 ring-2 ring-secondary ring-offset-2 ring-offset-tertiary' : 'bg-secondary shadow-secondary/30 hover:shadow-secondary/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Descargar Lista Excel
               </button>
