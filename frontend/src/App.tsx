@@ -47,14 +47,14 @@ export default function App() {
 
   return (
     <div className="flex flex-col h-screen">
-      <nav className="bg-gray-900 border-b border-gray-700 px-4 py-2 flex items-center gap-4 flex-shrink-0">
+      <nav className="bg-blue-900 border-b border-blue-700 px-4 py-2 flex items-center gap-4 flex-shrink-0 shadow-lg">
         <span className="text-white font-bold mr-4 hidden sm:inline">Menú:</span>
         <button
           onClick={() => setCurrentPage('home')}
           className={`px-3 py-2 rounded font-medium text-sm sm:text-base ${
             currentPage === 'home'
               ? 'bg-blue-700 text-white'
-              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              : 'bg-blue-800 text-blue-100 hover:bg-blue-700'
           }`}
         >
           HOME
@@ -64,7 +64,7 @@ export default function App() {
           className={`px-3 py-2 rounded font-medium text-sm sm:text-base ${
             currentPage === 'dashboard'
               ? 'bg-blue-700 text-white'
-              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              : 'bg-blue-800 text-blue-100 hover:bg-blue-700'
           }`}
         >
           Envío de Correos
@@ -74,7 +74,7 @@ export default function App() {
           className={`px-3 py-2 rounded font-medium text-sm sm:text-base ${
             currentPage === 'generador'
               ? 'bg-blue-700 text-white'
-              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              : 'bg-blue-800 text-blue-100 hover:bg-blue-700'
           }`}
         >
           Generador de Nombres
@@ -88,14 +88,14 @@ export default function App() {
         </button>
       </nav>
 
-      <main className="flex-1 overflow-y-auto bg-black">
+      <main className="flex-1 overflow-y-auto bg-gray-100">
         {currentPage === 'home' && <HomePage />}
         {currentPage === 'dashboard' && <DashboardPage />}
         {currentPage === 'generador' && <GeneratorPage />}
       </main>
 
-      <footer className="bg-gray-900 border-t border-gray-700 px-4 py-3 text-right flex-shrink-0">
-        <span className="text-xs sm:text-sm text-gray-400">Creado por: Marcelo Javier Ramirez Duran</span>
+      <footer className="bg-blue-900 border-t border-blue-700 px-4 py-3 text-right flex-shrink-0">
+        <span className="text-xs sm:text-sm text-blue-200">Creado por: Marcelo Javier Ramirez Duran</span>
       </footer>
     </div>
   );
