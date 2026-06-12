@@ -220,27 +220,27 @@ export default function DashboardPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'enviado': return 'bg-green-100 text-green-800 border border-green-300';
-      case 'saltado': return 'bg-yellow-100 text-yellow-800 border border-yellow-300';
-      case 'error': return 'bg-red-100 text-red-800 border border-red-300';
-      default: return 'bg-gray-100 text-gray-800 border border-gray-300';
+      case 'enviado': return 'bg-green-500/20 text-green-400';
+      case 'saltado': return 'bg-yellow-500/20 text-yellow-400';
+      case 'error': return 'bg-red-500/20 text-red-400';
+      default: return 'bg-neutral-700/50 text-neutral-400';
     }
   };
 
   return (
-    <div className="min-h-full bg-gray-100 text-gray-800">
+    <div className="min-h-full bg-tertiary text-white font-body">
       <div className="max-w-6xl mx-auto p-2 sm:p-4">
-        <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-          <h1 className="text-center text-lg font-bold mb-6 border-b border-blue-200 pb-4 text-blue-800">
+        <div className="bg-neutral-800 border border-neutral-700 rounded-2xl p-6 mb-6 shadow-md">
+          <h1 className="text-center text-lg font-bold font-headline mb-6 border-b border-neutral-700 pb-4 text-white">
             Sitio Web Gestion Archivos Excel Recaudacion por Contratante
           </h1>
 
-          <div className="bg-white border border-blue-200 rounded-lg p-4 mb-4">
+          <div className="bg-neutral-800 border border-neutral-700 rounded-2xl p-4 mb-4">
             <div className="flex items-center gap-2 mb-4">
-              <span className="w-3 h-3 bg-blue-600 rounded-sm"></span>
+              <span className="w-3 h-3 bg-primary rounded-sm"></span>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-              <label className="whitespace-nowrap font-medium min-w-0 sm:min-w-[280px] text-blue-800">
+              <label className="whitespace-nowrap font-medium font-label min-w-0 sm:min-w-[280px] text-neutral-400">
                 Directorio del Archivo Excel Datos Contratantes :
               </label>
               <input
@@ -248,7 +248,7 @@ export default function DashboardPage() {
                 value={contratantesFileName || ''}
                 readOnly
                 placeholder="Seleccione archivo..."
-                className="flex-1 px-3 py-2 bg-white text-gray-800 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-3 py-2 bg-neutral-700 text-white border border-neutral-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <input
                 ref={fileContratantesRef}
@@ -260,33 +260,33 @@ export default function DashboardPage() {
               <button
                 onClick={() => fileContratantesRef.current?.click()}
                 disabled={loading}
-                className={`px-6 py-2 border rounded-lg font-medium disabled:opacity-50 whitespace-nowrap ${clickedCargarContratantes ? 'bg-blue-700 border-blue-600 text-white' : 'bg-blue-100 hover:bg-blue-200 border-blue-300 text-blue-800'}`}
+                className={`px-6 py-2 border rounded-xl font-medium disabled:opacity-50 whitespace-nowrap ${clickedCargarContratantes ? 'bg-primary text-white border-primary' : 'bg-transparent border border-neutral-600 text-neutral-300 hover:bg-neutral-700'}`}
               >
                 Boton Carga Archivo excel
               </button>
               <button
                 onClick={() => setShowContratantesModal(true)}
                 disabled={contratantes.length === 0}
-                className="px-6 py-2 bg-blue-700 hover:bg-blue-800 border border-blue-600 rounded-lg font-medium disabled:opacity-50 whitespace-nowrap text-white"
+                className="px-6 py-2 bg-secondary hover:bg-purple-600 border border-secondary rounded-xl font-medium disabled:opacity-50 whitespace-nowrap text-white"
               >
                 Ver Contratantes ({contratantes.length})
               </button>
             </div>
           </div>
 
-          <div className="bg-white border border-blue-200 rounded-lg p-4 mb-4 relative">
+          <div className="bg-neutral-800 border border-neutral-700 rounded-2xl p-4 mb-4 relative">
             <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-center items-center w-8">
-              <div className="text-blue-500 text-xs font-bold">▲</div>
-              <div className="text-blue-500 text-[10px] leading-tight">XXX</div>
-              <div className="text-blue-500 text-[10px] leading-tight">XXX</div>
-              <div className="text-blue-500 text-[10px] leading-tight">XXX</div>
-              <div className="text-blue-500 text-xs font-bold">▼</div>
+              <div className="text-neutral-400 text-xs font-bold">▲</div>
+              <div className="text-neutral-400 text-[10px] leading-tight">XXX</div>
+              <div className="text-neutral-400 text-[10px] leading-tight">XXX</div>
+              <div className="text-neutral-400 text-[10px] leading-tight">XXX</div>
+              <div className="text-neutral-400 text-xs font-bold">▼</div>
             </div>
             <div className="flex items-center gap-2 mb-4 ml-8">
-              <span className="w-3 h-3 bg-blue-600 rounded-sm"></span>
+              <span className="w-3 h-3 bg-primary rounded-sm"></span>
             </div>
             <div className="flex items-center gap-4 ml-8">
-              <label className="whitespace-nowrap font-medium min-w-[280px] text-blue-800">
+              <label className="whitespace-nowrap font-medium font-label min-w-[280px] text-neutral-400">
                 Directorio de los Archivos Excel recaudaciones :
               </label>
               <input
@@ -294,7 +294,7 @@ export default function DashboardPage() {
                 value={recaudacionesDirName ? `${recaudacionesDirName} (${recaudacionesFileCount} archivos)` : ''}
                 readOnly
                 placeholder="Seleccione directorio..."
-                className="flex-1 px-3 py-2 bg-white text-gray-800 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-3 py-2 bg-neutral-700 text-white border border-neutral-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <input
                 ref={fileRecaudacionesRef}
@@ -310,14 +310,14 @@ export default function DashboardPage() {
               <button
                 onClick={() => fileRecaudacionesRef.current?.click()}
                 disabled={loading}
-                className={`px-6 py-2 border rounded-lg font-medium disabled:opacity-50 whitespace-nowrap ${clickedCargarRecaudaciones ? 'bg-blue-700 border-blue-600 text-white' : 'bg-blue-100 hover:bg-blue-200 border-blue-300 text-blue-800'}`}
+                className={`px-6 py-2 border rounded-xl font-medium disabled:opacity-50 whitespace-nowrap ${clickedCargarRecaudaciones ? 'bg-primary text-white border-primary' : 'bg-transparent border border-neutral-600 text-neutral-300 hover:bg-neutral-700'}`}
               >
                 Boton Carga Directorio
               </button>
               {recaudacionesFileList.length > 0 && (
                 <button
                   onClick={() => setShowFilesModal(true)}
-                  className="px-4 py-2 bg-blue-700 hover:bg-blue-800 border border-blue-600 rounded-lg font-medium whitespace-nowrap text-white"
+                  className="px-4 py-2 bg-secondary hover:bg-purple-600 border border-secondary rounded-xl font-medium whitespace-nowrap text-white"
                 >
                   Ver Archivos ({recaudacionesFileCount})
                 </button>
@@ -325,29 +325,29 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="bg-white border border-blue-200 rounded-lg p-4">
+          <div className="bg-neutral-800 border border-neutral-700 rounded-2xl p-4">
             <div className="flex items-center gap-2 mb-4">
-              <span className="w-3 h-3 bg-blue-600 rounded-sm"></span>
+              <span className="w-3 h-3 bg-primary rounded-sm"></span>
             </div>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6">
               <button
                 onClick={handleValidarContratantes}
                 disabled={loading || !validContratantes}
-                className={`px-6 py-3 border rounded-lg font-medium disabled:opacity-50 ${clickedValidarContratantes ? 'bg-green-700 border-green-600 text-white' : 'bg-blue-100 hover:bg-blue-200 border-blue-300 text-blue-800'}`}
+                className={`px-6 py-3 border rounded-xl font-medium disabled:opacity-50 ${clickedValidarContratantes ? 'bg-primary text-white border-primary' : 'bg-transparent border border-neutral-600 text-neutral-300 hover:bg-neutral-700'}`}
               >
                 Boton Valida Archivos Excel Contratantes
               </button>
               <button
                 onClick={handleValidarRecaudaciones}
                 disabled={loading || !validRecaudaciones}
-                className={`px-6 py-3 border rounded-lg font-medium disabled:opacity-50 ${clickedValidarRecaudaciones ? 'bg-green-700 border-green-600 text-white' : 'bg-blue-100 hover:bg-blue-200 border-blue-300 text-blue-800'}`}
+                className={`px-6 py-3 border rounded-xl font-medium disabled:opacity-50 ${clickedValidarRecaudaciones ? 'bg-primary text-white border-primary' : 'bg-transparent border border-neutral-600 text-neutral-300 hover:bg-neutral-700'}`}
               >
                 Boton Valida Archivos Excel Recaudaciones
               </button>
               <button
                 onClick={handleEnviarMail}
                 disabled={processing || !validatedContratantes || !validatedRecaudaciones || contratantes.length === 0}
-                className={`px-6 py-3 border rounded-lg font-medium disabled:opacity-50 ${clickedEnviarMail ? 'bg-green-700 border-green-600 text-white' : 'bg-blue-100 hover:bg-blue-200 border-blue-300 text-blue-800'}`}
+                className={`px-6 py-3 border rounded-xl font-medium disabled:opacity-50 ${clickedEnviarMail ? 'bg-primary text-white border-primary' : 'bg-transparent border border-neutral-600 text-neutral-300 hover:bg-neutral-700'}`}
               >
                 {processing ? 'Procesando...' : 'Boton Envio Mail Excel Recaudacion por Contratante'}
               </button>
@@ -356,37 +356,37 @@ export default function DashboardPage() {
         </div>
 
         {statusMsg && (
-          <div className="bg-blue-100 border border-blue-400 text-blue-800 rounded-lg p-3 mb-4 text-center">
+          <div className="bg-primary/20 border border-primary/50 text-orange-300 rounded-2xl p-3 mb-4 text-center">
             {statusMsg}
           </div>
         )}
 
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 rounded-lg p-3 mb-4 text-center">
+          <div className="bg-red-500/20 border border-red-500/50 text-red-400 rounded-2xl p-3 mb-4 text-center">
             {error}
             <button onClick={() => setError('')} className="ml-4 underline">Cerrar</button>
           </div>
         )}
 
         {result && (
-          <div className="bg-white border border-blue-200 rounded-lg p-4 mb-4 shadow-md">
-            <h2 className="font-bold mb-3 border-b border-blue-200 pb-2 text-blue-800">Resultado del Proceso</h2>
+          <div className="bg-neutral-800 border border-neutral-700 rounded-2xl p-4 mb-4 shadow-md">
+            <h2 className="font-bold font-headline mb-3 border-b border-neutral-700 pb-2 text-white">Resultado del Proceso</h2>
             <div className="grid grid-cols-4 gap-4 text-center mb-4">
-              <div className="bg-blue-100 p-3 rounded-lg">
-                <div className="text-2xl font-bold text-blue-800">{result.total}</div>
-                <div className="text-blue-600 text-sm">Total</div>
+              <div className="bg-primary/20 p-3 rounded-2xl">
+                <div className="text-2xl font-bold font-headline text-orange-400">{result.total}</div>
+                <div className="text-primary text-sm font-label">Total</div>
               </div>
-              <div className="bg-green-100 p-3 rounded-lg">
-                <div className="text-2xl font-bold text-green-700">{result.procesados}</div>
-                <div className="text-green-600 text-sm">Enviados</div>
+              <div className="bg-green-500/20 p-3 rounded-2xl">
+                <div className="text-2xl font-bold font-headline text-green-400">{result.procesados}</div>
+                <div className="text-green-400 text-sm font-label">Enviados</div>
               </div>
-              <div className="bg-yellow-100 p-3 rounded-lg">
-                <div className="text-2xl font-bold text-yellow-700">{result.saltados}</div>
-                <div className="text-yellow-600 text-sm">Saltados</div>
+              <div className="bg-yellow-500/20 p-3 rounded-2xl">
+                <div className="text-2xl font-bold font-headline text-yellow-400">{result.saltados}</div>
+                <div className="text-yellow-400 text-sm font-label">Saltados</div>
               </div>
-              <div className="bg-red-100 p-3 rounded-lg">
-                <div className="text-2xl font-bold text-red-700">{result.errores}</div>
-                <div className="text-red-600 text-sm">Errores</div>
+              <div className="bg-red-500/20 p-3 rounded-2xl">
+                <div className="text-2xl font-bold font-headline text-red-400">{result.errores}</div>
+                <div className="text-red-400 text-sm font-label">Errores</div>
               </div>
             </div>
           </div>
@@ -398,24 +398,24 @@ export default function DashboardPage() {
           const paginatedLogs = logs.slice(startIdx, startIdx + rowsPerPage);
 
           return (
-            <div className="bg-white border border-blue-200 rounded-lg p-4 shadow-md">
-              <div className="flex justify-between items-center mb-3 border-b border-blue-200 pb-3">
-                <h2 className="font-bold text-blue-800">Historial de Envíos</h2>
+            <div className="bg-neutral-800 border border-neutral-700 rounded-2xl p-4 shadow-md">
+              <div className="flex justify-between items-center mb-3 border-b border-neutral-700 pb-3">
+                <h2 className="font-bold font-headline text-white">Historial de Envíos</h2>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-blue-600">Filas por página:</span>
+                  <span className="text-sm font-label text-neutral-400">Filas por página:</span>
                   <select
                     value={rowsPerPage}
                     onChange={(e) => {
                       setRowsPerPage(Number(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="bg-white border border-blue-300 rounded-lg px-2 py-1 text-sm text-gray-800"
+                    className="bg-neutral-700 border border-neutral-600 rounded-xl px-2 py-1 text-sm text-white"
                   >
                     <option value={20}>20</option>
                     <option value={50}>50</option>
                     <option value={100}>100</option>
                   </select>
-                  <span className="text-sm text-blue-600">
+                  <span className="text-sm font-label text-neutral-400">
                     Mostrando {startIdx + 1}-{Math.min(startIdx + rowsPerPage, logs.length)} de {logs.length}
                   </span>
                 </div>
@@ -423,7 +423,7 @@ export default function DashboardPage() {
               <div className="overflow-y-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-blue-800 text-white">
+                    <tr className="bg-neutral-700 text-white">
                       <th className="text-left py-2 px-2">Fecha</th>
                       <th className="text-left py-2 px-2">Contratante</th>
                       <th className="text-left py-2 px-2">RUT</th>
@@ -433,7 +433,7 @@ export default function DashboardPage() {
                   </thead>
                   <tbody>
                     {paginatedLogs.map((log, i) => (
-                      <tr key={startIdx + i} className={`border-b border-blue-100 ${i % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-blue-50`}>
+                      <tr key={startIdx + i} className={`border-b border-neutral-700 ${i % 2 === 0 ? 'bg-neutral-800' : 'bg-neutral-750'} hover:bg-neutral-700`}>
                         <td className="py-1 px-2">
                           {new Date(log.timestamp).toLocaleString('es-CL')}
                         </td>
@@ -444,18 +444,18 @@ export default function DashboardPage() {
                             {log.status}
                           </span>
                         </td>
-                        <td className="py-1 px-2 text-gray-600">{log.mensaje}</td>
+                        <td className="py-1 px-2 text-neutral-400">{log.mensaje}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
               {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-blue-200">
+                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-neutral-700">
                   <button
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 border border-blue-300 rounded-lg text-sm text-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 py-1 bg-neutral-700 hover:bg-neutral-600 border border-neutral-600 rounded-xl text-sm text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     ← Anterior
                   </button>
@@ -463,10 +463,10 @@ export default function DashboardPage() {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`px-3 py-1 border rounded-lg text-sm ${
+                      className={`px-3 py-1 border rounded-xl text-sm ${
                         currentPage === page
-                          ? 'bg-blue-700 border-blue-600 text-white'
-                          : 'bg-blue-100 hover:bg-blue-200 border-blue-300 text-blue-800'
+                          ? 'bg-primary border-primary text-white'
+                          : 'bg-neutral-700 hover:bg-neutral-600 border-neutral-600 text-neutral-300'
                       }`}
                     >
                       {page}
@@ -475,7 +475,7 @@ export default function DashboardPage() {
                   <button
                     onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 border border-blue-300 rounded-lg text-sm text-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 py-1 bg-neutral-700 hover:bg-neutral-600 border border-neutral-600 rounded-xl text-sm text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Siguiente →
                   </button>
@@ -488,7 +488,7 @@ export default function DashboardPage() {
         <div className="mt-4 flex justify-start">
           <button
             onClick={handleReset}
-            className="text-sm text-red-600 hover:text-red-800 font-medium"
+            className="text-sm text-red-400 hover:text-red-300 font-medium font-label"
           >
             Reiniciar Sistema
           </button>
@@ -502,59 +502,59 @@ export default function DashboardPage() {
 
         return (
           <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-            <div className="bg-white border border-blue-200 rounded-xl p-6 w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col shadow-2xl">
-              <div className="flex justify-between items-center mb-4 border-b border-blue-200 pb-3">
-                <h2 className="text-lg font-bold text-blue-800">Archivos en Carpeta Pendiente</h2>
+            <div className="bg-neutral-800 border border-neutral-700 rounded-2xl p-6 w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col shadow-2xl">
+              <div className="flex justify-between items-center mb-4 border-b border-neutral-700 pb-3">
+                <h2 className="text-lg font-bold font-headline text-white">Archivos en Carpeta Pendiente</h2>
                 <button
                   onClick={() => setShowFilesModal(false)}
-                  className="text-gray-400 hover:text-red-600 text-2xl"
+                  className="text-neutral-400 hover:text-red-400 text-2xl"
                 >
                   ×
                 </button>
               </div>
               <div className="flex justify-between items-center mb-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-blue-600">Filas por página:</span>
+                  <span className="text-sm font-label text-neutral-400">Filas por página:</span>
                   <select
                     value={rowsPerPage}
                     onChange={(e) => {
                       setRowsPerPage(Number(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="bg-white border border-blue-300 rounded-lg px-2 py-1 text-sm text-gray-800"
+                    className="bg-neutral-700 border border-neutral-600 rounded-xl px-2 py-1 text-sm text-white"
                   >
                     <option value={20}>20</option>
                     <option value={50}>50</option>
                     <option value={100}>100</option>
                   </select>
                 </div>
-                <span className="text-sm text-blue-600">
+                <span className="text-sm font-label text-neutral-400">
                   Mostrando {startFileIdx + 1}-{Math.min(startFileIdx + rowsPerPage, recaudacionesFileList.length)} de {recaudacionesFileList.length}
                 </span>
               </div>
               <div className="flex-1 overflow-y-auto">
                 {recaudacionesFileList.length === 0 ? (
-                  <p className="text-blue-400 text-center py-4">No hay archivos cargados</p>
+                  <p className="text-neutral-500 text-center py-4">No hay archivos cargados</p>
                 ) : (
                   <ul className="space-y-2">
                     {paginatedFiles.map((fileName, i) => (
                       <li
                         key={startFileIdx + i}
-                        className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200"
+                        className="flex items-center gap-3 p-3 bg-neutral-750 rounded-xl border border-neutral-700"
                       >
-                        <span className="text-blue-600">📄</span>
-                        <span className="text-sm text-gray-800">{fileName}</span>
+                        <span className="text-primary">📄</span>
+                        <span className="text-sm text-neutral-300">{fileName}</span>
                       </li>
                     ))}
                   </ul>
                 )}
               </div>
               {totalFilesPages > 1 && (
-                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-blue-200">
+                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-neutral-700">
                   <button
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 border border-blue-300 rounded-lg text-sm text-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 py-1 bg-neutral-700 hover:bg-neutral-600 border border-neutral-600 rounded-xl text-sm text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     ← Anterior
                   </button>
@@ -562,10 +562,10 @@ export default function DashboardPage() {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`px-3 py-1 border rounded-lg text-sm ${
+                      className={`px-3 py-1 border rounded-xl text-sm ${
                         currentPage === page
-                          ? 'bg-blue-700 border-blue-600 text-white'
-                          : 'bg-blue-100 hover:bg-blue-200 border-blue-300 text-blue-800'
+                          ? 'bg-primary border-primary text-white'
+                          : 'bg-neutral-700 hover:bg-neutral-600 border-neutral-600 text-neutral-300'
                       }`}
                     >
                       {page}
@@ -574,18 +574,18 @@ export default function DashboardPage() {
                   <button
                     onClick={() => setCurrentPage(p => Math.min(totalFilesPages, p + 1))}
                     disabled={currentPage === totalFilesPages}
-                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 border border-blue-300 rounded-lg text-sm text-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 py-1 bg-neutral-700 hover:bg-neutral-600 border border-neutral-600 rounded-xl text-sm text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Siguiente →
                   </button>
                 </div>
               )}
-              <div className="mt-4 text-center text-sm text-blue-600">
+              <div className="mt-4 text-center text-sm font-label text-neutral-400">
                 Total: {recaudacionesFileCount} archivo(s)
               </div>
               <button
                 onClick={() => setShowFilesModal(false)}
-                className="mt-4 w-full py-2 bg-blue-100 hover:bg-blue-200 border border-blue-300 rounded-lg font-medium text-blue-800"
+                className="mt-4 w-full py-2 bg-neutral-700 hover:bg-neutral-600 border border-neutral-600 rounded-xl font-medium text-neutral-300"
               >
                 Cerrar
               </button>
@@ -601,43 +601,43 @@ export default function DashboardPage() {
 
         return (
           <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-            <div className="bg-white border border-blue-200 rounded-xl p-6 w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col shadow-2xl">
-              <div className="flex justify-between items-center mb-4 border-b border-blue-200 pb-3">
-                <h2 className="text-lg font-bold text-blue-800">Contratantes Cargados ({contratantes.length})</h2>
+            <div className="bg-neutral-800 border border-neutral-700 rounded-2xl p-6 w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col shadow-2xl">
+              <div className="flex justify-between items-center mb-4 border-b border-neutral-700 pb-3">
+                <h2 className="text-lg font-bold font-headline text-white">Contratantes Cargados ({contratantes.length})</h2>
                 <button
                   onClick={() => setShowContratantesModal(false)}
-                  className="text-gray-400 hover:text-red-600 text-2xl"
+                  className="text-neutral-400 hover:text-red-400 text-2xl"
                 >
                   ×
                 </button>
               </div>
               <div className="flex justify-between items-center mb-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-blue-600">Filas por página:</span>
+                  <span className="text-sm font-label text-neutral-400">Filas por página:</span>
                   <select
                     value={rowsPerPage}
                     onChange={(e) => {
                       setRowsPerPage(Number(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="bg-white border border-blue-300 rounded-lg px-2 py-1 text-sm text-gray-800"
+                    className="bg-neutral-700 border border-neutral-600 rounded-xl px-2 py-1 text-sm text-white"
                   >
                     <option value={20}>20</option>
                     <option value={50}>50</option>
                     <option value={100}>100</option>
                   </select>
                 </div>
-                <span className="text-sm text-blue-600">
+                <span className="text-sm font-label text-neutral-400">
                   Mostrando {startContratanteIdx + 1}-{Math.min(startContratanteIdx + rowsPerPage, contratantes.length)} de {contratantes.length}
                 </span>
               </div>
               <div className="flex-1 overflow-y-auto">
                 {contratantes.length === 0 ? (
-                  <p className="text-blue-400 text-center py-4">No hay contratantes cargados</p>
+                  <p className="text-neutral-500 text-center py-4">No hay contratantes cargados</p>
                 ) : (
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-blue-800 text-white">
+                      <tr className="bg-neutral-700 text-white">
                         <th className="text-left py-2 px-2">Nombre</th>
                         <th className="text-left py-2 px-2">RUT</th>
                         <th className="text-left py-2 px-2">ID</th>
@@ -646,7 +646,7 @@ export default function DashboardPage() {
                     </thead>
                     <tbody>
                       {paginatedContratantes.map((c, i) => (
-                        <tr key={startContratanteIdx + i} className={`border-b border-blue-100 ${i % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-blue-50`}>
+                        <tr key={startContratanteIdx + i} className={`border-b border-neutral-700 ${i % 2 === 0 ? 'bg-neutral-800' : 'bg-neutral-750'} hover:bg-neutral-700`}>
                           <td className="py-1 px-2">{c.nombre}</td>
                           <td className="py-1 px-2">{c.rut}</td>
                           <td className="py-1 px-2">{c.id}</td>
@@ -658,11 +658,11 @@ export default function DashboardPage() {
                 )}
               </div>
               {totalContratantesPages > 1 && (
-                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-blue-200">
+                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-neutral-700">
                   <button
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 border border-blue-300 rounded-lg text-sm text-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 py-1 bg-neutral-700 hover:bg-neutral-600 border border-neutral-600 rounded-xl text-sm text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     ← Anterior
                   </button>
@@ -670,10 +670,10 @@ export default function DashboardPage() {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`px-3 py-1 border rounded-lg text-sm ${
+                      className={`px-3 py-1 border rounded-xl text-sm ${
                         currentPage === page
-                          ? 'bg-blue-700 border-blue-600 text-white'
-                          : 'bg-blue-100 hover:bg-blue-200 border-blue-300 text-blue-800'
+                          ? 'bg-primary border-primary text-white'
+                          : 'bg-neutral-700 hover:bg-neutral-600 border-neutral-600 text-neutral-300'
                       }`}
                     >
                       {page}
@@ -682,18 +682,18 @@ export default function DashboardPage() {
                   <button
                     onClick={() => setCurrentPage(p => Math.min(totalContratantesPages, p + 1))}
                     disabled={currentPage === totalContratantesPages}
-                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 border border-blue-300 rounded-lg text-sm text-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 py-1 bg-neutral-700 hover:bg-neutral-600 border border-neutral-600 rounded-xl text-sm text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Siguiente →
                   </button>
                 </div>
               )}
-              <div className="mt-4 text-center text-sm text-blue-600">
+              <div className="mt-4 text-center text-sm font-label text-neutral-400">
                 Total: {contratantes.length} contratante(s)
               </div>
               <button
                 onClick={() => setShowContratantesModal(false)}
-                className="mt-4 w-full py-2 bg-blue-100 hover:bg-blue-200 border border-blue-300 rounded-lg font-medium text-blue-800"
+                className="mt-4 w-full py-2 bg-neutral-700 hover:bg-neutral-600 border border-neutral-600 rounded-xl font-medium text-neutral-300"
               >
                 Cerrar
               </button>

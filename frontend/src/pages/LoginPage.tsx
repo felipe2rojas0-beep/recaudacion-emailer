@@ -32,42 +32,44 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 flex items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
-        <div className="bg-gradient-to-r from-blue-800 to-blue-600 text-white p-6 rounded-xl mb-6 -mt-4 -mx-4 shadow-lg">
-          <h1 className="text-2xl font-bold text-center">Recaudación Emailer</h1>
-          <p className="text-blue-100 text-center text-sm mt-2">Sistema de Gestión de Correos</p>
+    <div className="min-h-screen bg-tertiary flex items-center justify-center p-4">
+      <div className="bg-neutral-800 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-neutral-700">
+        <div className="flex items-center justify-center gap-3 mb-8">
+          <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+            <span className="text-white font-headline font-bold text-xl">R</span>
+          </div>
+          <h1 className="text-2xl font-headline font-bold text-white">Recaudación</h1>
         </div>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-blue-800 mb-1">
+            <label className="block text-sm font-label text-neutral-400 mb-2">
               Usuario
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-3 bg-neutral-700 text-white border border-neutral-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-blue-800 mb-1">
+            <label className="block text-sm font-label text-neutral-400 mb-2">
               Contraseña
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-3 bg-neutral-700 text-white border border-neutral-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body"
               required
             />
           </div>
 
           {error && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm border border-red-200">
+            <div className="bg-red-900/50 text-red-300 p-3 rounded-xl text-sm border border-red-700">
               {error}
             </div>
           )}
@@ -75,13 +77,13 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-700 text-white py-3 px-4 rounded-lg hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-md transition-colors"
+            className="w-full bg-primary text-white py-3 px-4 rounded-xl hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed font-headline font-semibold transition-all"
           >
             {loading ? 'Ingresando...' : 'Iniciar Sesión'}
           </button>
         </form>
 
-        <p className="text-xs text-blue-600 mt-4 text-center">
+        <p className="text-xs text-neutral-500 mt-6 text-center font-label">
           Usuario por defecto: admin / admin123
         </p>
       </div>

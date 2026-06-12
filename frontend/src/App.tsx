@@ -46,56 +46,66 @@ export default function App() {
   }
 
   return (
-    <div className="flex flex-col h-screen">
-      <nav className="bg-blue-900 border-b border-blue-700 px-4 py-2 flex items-center gap-4 flex-shrink-0 shadow-lg">
-        <span className="text-white font-bold mr-4 hidden sm:inline">Menú:</span>
-        <button
-          onClick={() => setCurrentPage('home')}
-          className={`px-3 py-2 rounded font-medium text-sm sm:text-base ${
-            currentPage === 'home'
-              ? 'bg-blue-700 text-white'
-              : 'bg-blue-800 text-blue-100 hover:bg-blue-700'
-          }`}
-        >
-          HOME
-        </button>
-        <button
-          onClick={() => setCurrentPage('dashboard')}
-          className={`px-3 py-2 rounded font-medium text-sm sm:text-base ${
-            currentPage === 'dashboard'
-              ? 'bg-blue-700 text-white'
-              : 'bg-blue-800 text-blue-100 hover:bg-blue-700'
-          }`}
-        >
-          Envío de Correos
-        </button>
-        <button
-          onClick={() => setCurrentPage('generador')}
-          className={`px-3 py-2 rounded font-medium text-sm sm:text-base ${
-            currentPage === 'generador'
-              ? 'bg-blue-700 text-white'
-              : 'bg-blue-800 text-blue-100 hover:bg-blue-700'
-          }`}
-        >
-          Generador de Nombres
-        </button>
+    <div className="flex flex-col h-screen bg-tertiary">
+      <nav className="bg-tertiary border-b border-neutral-700 px-6 py-3 flex items-center gap-4 flex-shrink-0">
+        <div className="flex items-center gap-2 mr-6">
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-sm">R</span>
+          </div>
+          <span className="text-white font-headline font-bold text-lg hidden sm:inline">Recaudación</span>
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setCurrentPage('home')}
+            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+              currentPage === 'home'
+                ? 'bg-primary text-white'
+                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+            }`}
+          >
+            HOME
+          </button>
+          <button
+            onClick={() => setCurrentPage('dashboard')}
+            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+              currentPage === 'dashboard'
+                ? 'bg-primary text-white'
+                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+            }`}
+          >
+            Envío de Correos
+          </button>
+          <button
+            onClick={() => setCurrentPage('generador')}
+            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+              currentPage === 'generador'
+                ? 'bg-primary text-white'
+                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+            }`}
+          >
+            Generador de Nombres
+          </button>
+        </div>
+        
         <div className="flex-1"></div>
+        
         <button
           onClick={handleLogout}
-          className="px-3 py-2 rounded font-medium bg-red-700 hover:bg-red-600 text-white text-sm sm:text-base"
+          className="px-4 py-2 rounded-lg font-medium bg-neutral-700 hover:bg-neutral-600 text-white text-sm transition-all"
         >
           Cerrar Sesión
         </button>
       </nav>
 
-      <main className="flex-1 overflow-y-auto bg-gray-100">
+      <main className="flex-1 overflow-y-auto bg-tertiary">
         {currentPage === 'home' && <HomePage />}
         {currentPage === 'dashboard' && <DashboardPage />}
         {currentPage === 'generador' && <GeneratorPage />}
       </main>
 
-      <footer className="bg-blue-900 border-t border-blue-700 px-4 py-3 text-right flex-shrink-0">
-        <span className="text-xs sm:text-sm text-blue-200">Creado por: Marcelo Javier Ramirez Duran</span>
+      <footer className="bg-tertiary border-t border-neutral-700 px-6 py-3 text-right flex-shrink-0">
+        <span className="text-xs sm:text-sm text-neutral-400 font-body">Creado por: Marcelo Javier Ramirez Duran</span>
       </footer>
     </div>
   );
