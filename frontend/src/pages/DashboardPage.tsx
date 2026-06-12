@@ -528,56 +528,113 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
         </div>
       )}
 
-      {showContratantesModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-gray-900 border border-gray-600 rounded-lg p-6 w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col">
-            <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-3">
-              <h2 className="text-lg font-bold">Contratantes Cargados ({contratantes.length})</h2>
+      {showContratantesModal && (() => {
+        const totalContratantesPages = Math.ceil(contratantes.length / rowsPerPage);
+        const startContratanteIdx = (currentPage - 1) * rowsPerPage;
+        const paginatedContratantes = contratantes.slice(startContratanteIdx, startContratanteIdx + rowsPerPage);
+
+        return (
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+            <div className="bg-gray-900 border border-gray-600 rounded-lg p-6 w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col">
+              <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-3">
+                <h2 className="text-lg font-bold">Contratantes Cargados ({contratantes.length})</h2>
+                <button
+                  onClick={() => setShowContratantesModal(false)}
+                  className="text-gray-400 hover:text-white text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="flex justify-between items-center mb-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-gray-400">Filas por página:</span>
+                  <select
+                    value={rowsPerPage}
+                    onChange={(e) => {
+                      setRowsPerPage(Number(e.target.value));
+                      setCurrentPage(1);
+                    }}
+                    className="bg-gray-700 border border-gray-500 rounded px-2 py-1 text-sm text-white"
+                  >
+                    <option value={20}>20</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </select>
+                </div>
+                <span className="text-sm text-gray-400">
+                  Mostrando {startContratanteIdx + 1}-{Math.min(startContratanteIdx + rowsPerPage, contratantes.length)} de {contratantes.length}
+                </span>
+              </div>
+              <div className="flex-1 overflow-y-auto">
+                {contratantes.length === 0 ? (
+                  <p className="text-gray-400 text-center py-4">No hay contratantes cargados</p>
+                ) : (
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-600">
+                        <th className="text-left py-2 px-2">Nombre</th>
+                        <th className="text-left py-2 px-2">RUT</th>
+                        <th className="text-left py-2 px-2">ID</th>
+                        <th className="text-left py-2 px-2">Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {paginatedContratantes.map((c, i) => (
+                        <tr key={startContratanteIdx + i} className="border-b border-gray-700 hover:bg-gray-800">
+                          <td className="py-1 px-2">{c.nombre}</td>
+                          <td className="py-1 px-2">{c.rut}</td>
+                          <td className="py-1 px-2">{c.id}</td>
+                          <td className="py-1 px-2">{c.email}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+              {totalContratantesPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-gray-600">
+                  <button
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="px-3 py-1 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    ← Anterior
+                  </button>
+                  {Array.from({ length: totalContratantesPages }, (_, i) => i + 1).map(page => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`px-3 py-1 border rounded text-sm ${
+                        currentPage === page
+                          ? 'bg-blue-700 border-blue-500 text-white'
+                          : 'bg-gray-700 hover:bg-gray-600 border-gray-500'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setCurrentPage(p => Math.min(totalContratantesPages, p + 1))}
+                    disabled={currentPage === totalContratantesPages}
+                    className="px-3 py-1 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Siguiente →
+                  </button>
+                </div>
+              )}
+              <div className="mt-4 text-center text-sm text-gray-400">
+                Total: {contratantes.length} contratante(s)
+              </div>
               <button
                 onClick={() => setShowContratantesModal(false)}
-                className="text-gray-400 hover:text-white text-2xl"
+                className="mt-4 w-full py-2 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium"
               >
-                ×
+                Cerrar
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto">
-              {contratantes.length === 0 ? (
-                <p className="text-gray-400 text-center py-4">No hay contratantes cargados</p>
-              ) : (
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-gray-600">
-                      <th className="text-left py-2 px-2">Nombre</th>
-                      <th className="text-left py-2 px-2">RUT</th>
-                      <th className="text-left py-2 px-2">ID</th>
-                      <th className="text-left py-2 px-2">Email</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {contratantes.map((c, i) => (
-                      <tr key={i} className="border-b border-gray-700 hover:bg-gray-800">
-                        <td className="py-1 px-2">{c.nombre}</td>
-                        <td className="py-1 px-2">{c.rut}</td>
-                        <td className="py-1 px-2">{c.id}</td>
-                        <td className="py-1 px-2">{c.email}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </div>
-            <div className="mt-4 text-center text-sm text-gray-400">
-              Total: {contratantes.length} contratante(s)
-            </div>
-            <button
-              onClick={() => setShowContratantesModal(false)}
-              className="mt-4 w-full py-2 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium"
-            >
-              Cerrar
-            </button>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }
