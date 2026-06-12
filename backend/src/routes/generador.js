@@ -26,19 +26,58 @@ const upload = multer({
   }
 });
 
+const parseCSVLine = (line) => {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        if (i + 1 < line.length && line[i + 1] === '"') {
+          current += '"';
+          i++;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        current += ch;
+      }
+    } else {
+      if (ch === '"') {
+        inQuotes = true;
+      } else if (ch === ',' || ch === ';') {
+        result.push(current.trim());
+        current = '';
+      } else {
+        current += ch;
+      }
+    }
+  }
+  result.push(current.trim());
+  return result;
+};
+
 const parseExcelFile = (buffer, originalname) => {
   const ext = path.extname(originalname).toLowerCase();
 
   if (ext === '.csv') {
-    const content = buffer.toString('utf-8');
+    let content = buffer.toString('utf-8');
+    if (content.charCodeAt(0) === 0xFEFF) content = content.slice(1);
     const lines = content.split('\n').filter(l => l.trim());
     if (lines.length < 2) return [];
-    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+
+    const headerLine = parseCSVLine(lines[0]);
+    const delimiter = headerLine.length > 1 ? (lines[0].includes(';') ? ';' : ',') : ',';
+    const headers = headerLine.length > 1 ? headerLine : lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+
     const data = [];
     for (let i = 1; i < lines.length; i++) {
-      const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+      const values = delimiter === ';'
+        ? parseCSVLine(lines[i])
+        : lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
       const row = {};
-      headers.forEach((h, idx) => { row[h] = values[idx]; });
+      headers.forEach((h, idx) => { row[h] = values[idx] || ''; });
       data.push(row);
     }
     return data;
@@ -69,9 +108,9 @@ router.post('/upload-contratantes', upload.array('files', 10), (req, res) => {
       const data = parseExcelFile(file.buffer, file.originalname);
 
       for (const row of data) {
-        const rut = row['RUT'] || row['Rut'] || row['rut'];
-        const id = row['ID'] || row['Id'] || row['id'];
-        const nombre = row['NOMBRE'] || row['Nombre'] || row['nombre'] || row['CONTRATANTE'] || row['Contratante'];
+        const rut = row['RUT'] || row['Rut'] || row['rut'] || row['RUT CONTRATANTE'] || row['Rut Contratante'];
+        const id = row['ID'] || row['Id'] || row['id'] || row['ID CONTRATANTE'] || row['Id Contratante'];
+        const nombre = row['NOMBRE'] || row['Nombre'] || row['nombre'] || row['CONTRATANTE'] || row['Contratante'] || row['contratante'] || row['NOMBRE CONTRATANTE'] || row['Nombre Contratante'];
 
         if (rut && id && nombre) {
           contratantes.push({

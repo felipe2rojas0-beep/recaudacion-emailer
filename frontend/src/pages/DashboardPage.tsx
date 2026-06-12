@@ -238,7 +238,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
               <input
                 ref={fileContratantesRef}
                 type="file"
-                accept=".xlsx,.xls"
+                accept=".xlsx,.xls,.csv"
                 onChange={handleSelectContratantes}
                 className="hidden"
               />

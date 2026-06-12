@@ -166,7 +166,7 @@ export default function GeneratorPage({ onLogout }: GeneratorPageProps) {
               <input
                 ref={fileContratantesRef}
                 type="file"
-                accept=".xlsx,.xls"
+                accept=".xlsx,.xls,.csv"
                 onChange={handleSelectContratantes}
                 className="hidden"
               />

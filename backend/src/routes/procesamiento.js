@@ -10,7 +10,19 @@ const router = Router();
 router.use(authenticateToken);
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 } });
+const upload = multer({
+  storage,
+  limits: { fileSize: 50 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['.xlsx', '.xls', '.csv'];
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (allowedTypes.includes(ext)) {
+      cb(null, true);
+    } else {
+      cb(new Error(`Tipo de archivo no permitido: ${ext}`));
+    }
+  }
+});
 
 const logs = [];
 let loadedContratantes = [];
@@ -26,7 +38,60 @@ const ensureTempDir = () => {
   }
 };
 
-const parseExcelBuffer = (buffer) => {
+const parseCSVLine = (line) => {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        if (i + 1 < line.length && line[i + 1] === '"') {
+          current += '"';
+          i++;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        current += ch;
+      }
+    } else {
+      if (ch === '"') {
+        inQuotes = true;
+      } else if (ch === ',' || ch === ';') {
+        result.push(current.trim());
+        current = '';
+      } else {
+        current += ch;
+      }
+    }
+  }
+  result.push(current.trim());
+  return result;
+};
+
+const parseExcelBuffer = (buffer, originalname) => {
+  if (originalname && originalname.toLowerCase().endsWith('.csv')) {
+    let content = buffer.toString('utf-8');
+    if (content.charCodeAt(0) === 0xFEFF) content = content.slice(1);
+    const lines = content.split('\n').filter(l => l.trim());
+    if (lines.length < 2) return [];
+
+    const headerLine = parseCSVLine(lines[0]);
+    const delimiter = headerLine.length > 1 ? (lines[0].includes(';') ? ';' : ',') : ',';
+    const headers = headerLine.length > 1 ? headerLine : lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+
+    const data = [];
+    for (let i = 1; i < lines.length; i++) {
+      const values = delimiter === ';'
+        ? parseCSVLine(lines[i])
+        : lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+      const row = {};
+      headers.forEach((h, idx) => { row[h] = values[idx] || ''; });
+      data.push(row);
+    }
+    return data;
+  }
   const workbook = xlsx.read(buffer, { type: 'buffer' });
   const sheetName = workbook.SheetNames[0];
   const sheet = workbook.Sheets[sheetName];
@@ -42,13 +107,13 @@ router.post('/upload-contratantes', upload.array('files', 10), (req, res) => {
     const contratantes = [];
 
     for (const file of req.files) {
-      const data = parseExcelBuffer(file.buffer);
+      const data = parseExcelBuffer(file.buffer, file.originalname);
 
       for (const row of data) {
-        const rut = row['RUT'] || row['Rut'] || row['rut'];
-        const id = row['ID'] || row['Id'] || row['id'];
-        const nombre = row['NOMBRE'] || row['Nombre'] || row['nombre'] || row['CONTRATANTE'] || row['Contratante'];
-        const email = row['EMAIL'] || row['Email'] || row['email'] || row['CORREO'] || row['Correo'];
+        const rut = row['RUT'] || row['Rut'] || row['rut'] || row['RUT CONTRATANTE'] || row['Rut Contratante'];
+        const id = row['ID'] || row['Id'] || row['id'] || row['ID CONTRATANTE'] || row['Id Contratante'];
+        const nombre = row['NOMBRE'] || row['Nombre'] || row['nombre'] || row['CONTRATANTE'] || row['Contratante'] || row['contratante'] || row['NOMBRE CONTRATANTE'] || row['Nombre Contratante'];
+        const email = row['EMAIL'] || row['Email'] || row['email'] || row['CORREO'] || row['Correo'] || row['correo'] || row['E-MAIL'] || row['E-mail'];
 
         if (rut && id && nombre && email) {
           contratantes.push({
