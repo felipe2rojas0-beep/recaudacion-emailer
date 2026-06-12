@@ -486,47 +486,104 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
         </div>
       </div>
 
-      {showFilesModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-gray-900 border border-gray-600 rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
-            <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-3">
-              <h2 className="text-lg font-bold">Archivos en Carpeta Pendiente</h2>
+      {showFilesModal && (() => {
+        const totalFilesPages = Math.ceil(recaudacionesFileList.length / rowsPerPage);
+        const startFileIdx = (currentPage - 1) * rowsPerPage;
+        const paginatedFiles = recaudacionesFileList.slice(startFileIdx, startFileIdx + rowsPerPage);
+
+        return (
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+            <div className="bg-gray-900 border border-gray-600 rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
+              <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-3">
+                <h2 className="text-lg font-bold">Archivos en Carpeta Pendiente</h2>
+                <button
+                  onClick={() => setShowFilesModal(false)}
+                  className="text-gray-400 hover:text-white text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="flex justify-between items-center mb-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-gray-400">Filas por página:</span>
+                  <select
+                    value={rowsPerPage}
+                    onChange={(e) => {
+                      setRowsPerPage(Number(e.target.value));
+                      setCurrentPage(1);
+                    }}
+                    className="bg-gray-700 border border-gray-500 rounded px-2 py-1 text-sm text-white"
+                  >
+                    <option value={20}>20</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </select>
+                </div>
+                <span className="text-sm text-gray-400">
+                  Mostrando {startFileIdx + 1}-{Math.min(startFileIdx + rowsPerPage, recaudacionesFileList.length)} de {recaudacionesFileList.length}
+                </span>
+              </div>
+              <div className="flex-1 overflow-y-auto">
+                {recaudacionesFileList.length === 0 ? (
+                  <p className="text-gray-400 text-center py-4">No hay archivos cargados</p>
+                ) : (
+                  <ul className="space-y-2">
+                    {paginatedFiles.map((fileName, i) => (
+                      <li
+                        key={startFileIdx + i}
+                        className="flex items-center gap-3 p-3 bg-gray-800 rounded border border-gray-700"
+                      >
+                        <span className="text-blue-400">📄</span>
+                        <span className="text-sm">{fileName}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              {totalFilesPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mt-3 pt-3 border-t border-gray-600">
+                  <button
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="px-3 py-1 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    ← Anterior
+                  </button>
+                  {Array.from({ length: totalFilesPages }, (_, i) => i + 1).map(page => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`px-3 py-1 border rounded text-sm ${
+                        currentPage === page
+                          ? 'bg-blue-700 border-blue-500 text-white'
+                          : 'bg-gray-700 hover:bg-gray-600 border-gray-500'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setCurrentPage(p => Math.min(totalFilesPages, p + 1))}
+                    disabled={currentPage === totalFilesPages}
+                    className="px-3 py-1 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Siguiente →
+                  </button>
+                </div>
+              )}
+              <div className="mt-4 text-center text-sm text-gray-400">
+                Total: {recaudacionesFileCount} archivo(s)
+              </div>
               <button
                 onClick={() => setShowFilesModal(false)}
-                className="text-gray-400 hover:text-white text-2xl"
+                className="mt-4 w-full py-2 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium"
               >
-                ×
+                Cerrar
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto">
-              {recaudacionesFileList.length === 0 ? (
-                <p className="text-gray-400 text-center py-4">No hay archivos cargados</p>
-              ) : (
-                <ul className="space-y-2">
-                  {recaudacionesFileList.map((fileName, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center gap-3 p-3 bg-gray-800 rounded border border-gray-700"
-                    >
-                      <span className="text-blue-400">📄</span>
-                      <span className="text-sm">{fileName}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <div className="mt-4 text-center text-sm text-gray-400">
-              Total: {recaudacionesFileCount} archivo(s)
-            </div>
-            <button
-              onClick={() => setShowFilesModal(false)}
-              className="mt-4 w-full py-2 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium"
-            >
-              Cerrar
-            </button>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {showContratantesModal && (() => {
         const totalContratantesPages = Math.ceil(contratantes.length / rowsPerPage);
