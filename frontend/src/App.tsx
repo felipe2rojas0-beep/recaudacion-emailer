@@ -68,10 +68,17 @@ export default function App() {
         >
           Generador de Nombres
         </button>
+        <div className="flex-1"></div>
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 rounded font-medium bg-red-700 hover:bg-red-600 text-white"
+        >
+          Cerrar Sesión
+        </button>
       </nav>
 
-      {currentPage === 'dashboard' && <DashboardPage onLogout={handleLogout} />}
-      {currentPage === 'generador' && <GeneratorPage onLogout={handleLogout} />}
+      {currentPage === 'dashboard' && <DashboardPage />}
+      {currentPage === 'generador' && <GeneratorPage />}
     </div>
   );
 }

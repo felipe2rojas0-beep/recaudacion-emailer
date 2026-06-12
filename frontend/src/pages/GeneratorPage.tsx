@@ -1,10 +1,6 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
 
-interface GeneratorPageProps {
-  onLogout: () => void;
-}
-
 const cleanBOM = (str: string): string => {
   if (!str) return str;
   return str
@@ -43,7 +39,7 @@ api.interceptors.response.use(
   }
 );
 
-export default function GeneratorPage({ onLogout }: GeneratorPageProps) {
+export default function GeneratorPage() {
   const fileContratantesRef = useRef<HTMLInputElement>(null);
   const [contratantesFileName, setContratantesFileName] = useState('');
   const [showContratantesModal, setShowContratantesModal] = useState(false);
@@ -315,18 +311,12 @@ export default function GeneratorPage({ onLogout }: GeneratorPageProps) {
           )}
         </div>
 
-        <div className="mt-4 flex justify-between">
+        <div className="mt-4 flex justify-start">
           <button
             onClick={handleReset}
             className="text-sm text-yellow-400 hover:text-yellow-300"
           >
             Reiniciar Sistema
-          </button>
-          <button
-            onClick={onLogout}
-            className="text-sm text-gray-400 hover:text-white"
-          >
-            Cerrar Sesión
           </button>
         </div>
       </div>

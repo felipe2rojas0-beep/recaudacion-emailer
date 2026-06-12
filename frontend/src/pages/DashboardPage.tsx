@@ -20,10 +20,6 @@ const cleanContratantes = (arr: any[]) =>
     email: cleanBOM(c.email)
   }));
 
-interface DashboardPageProps {
-  onLogout: () => void;
-}
-
 interface LogEntry {
   contratante: string;
   rut: string;
@@ -35,7 +31,7 @@ interface LogEntry {
   mensaje: string;
 }
 
-export default function DashboardPage({ onLogout }: DashboardPageProps) {
+export default function DashboardPage() {
   const fileContratantesRef = useRef<HTMLInputElement>(null);
   const fileRecaudacionesRef = useRef<HTMLInputElement>(null);
   const [contratantesFileName, setContratantesFileName] = useState('');
@@ -489,18 +485,12 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
           );
         })()}
 
-        <div className="mt-4 flex justify-between">
+        <div className="mt-4 flex justify-start">
           <button
             onClick={handleReset}
             className="text-sm text-yellow-400 hover:text-yellow-300"
           >
             Reiniciar Sistema
-          </button>
-          <button
-            onClick={onLogout}
-            className="text-sm text-gray-400 hover:text-white"
-          >
-            Cerrar Sesión
           </button>
         </div>
       </div>
