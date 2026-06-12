@@ -34,6 +34,8 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
   const [clickedValidarContratantes, setClickedValidarContratantes] = useState(false);
   const [clickedValidarRecaudaciones, setClickedValidarRecaudaciones] = useState(false);
   const [clickedEnviarMail, setClickedEnviarMail] = useState(false);
+  const [clickedCargarContratantes, setClickedCargarContratantes] = useState(false);
+  const [clickedCargarRecaudaciones, setClickedCargarRecaudaciones] = useState(false);
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [logs, setLogs] = useState<LogEntry[]>([]);
@@ -45,6 +47,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
+    setClickedCargarContratantes(true);
     setLoading(true);
     setError('');
     setStatusMsg('Cargando archivo de contratantes...');
@@ -69,6 +72,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
+    setClickedCargarRecaudaciones(true);
     setLoading(true);
     setError('');
     setStatusMsg('Cargando archivos de recaudaciones...');
@@ -187,6 +191,8 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
       setClickedValidarContratantes(false);
       setClickedValidarRecaudaciones(false);
       setClickedEnviarMail(false);
+      setClickedCargarContratantes(false);
+      setClickedCargarRecaudaciones(false);
       setResult(null);
       setLogs([]);
       setStatusMsg('Sistema reiniciado');
@@ -237,7 +243,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
               <button
                 onClick={() => fileContratantesRef.current?.click()}
                 disabled={loading}
-                className="px-6 py-2 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium disabled:opacity-50 whitespace-nowrap"
+                className={`px-6 py-2 border rounded font-medium disabled:opacity-50 whitespace-nowrap ${clickedCargarContratantes ? 'bg-purple-800 border-purple-600 text-white' : 'bg-gray-700 hover:bg-gray-600 border-gray-500'}`}
               >
                 Boton Carga Archivo excel
               </button>
@@ -287,7 +293,7 @@ export default function DashboardPage({ onLogout }: DashboardPageProps) {
               <button
                 onClick={() => fileRecaudacionesRef.current?.click()}
                 disabled={loading}
-                className="px-6 py-2 bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded font-medium disabled:opacity-50 whitespace-nowrap"
+                className={`px-6 py-2 border rounded font-medium disabled:opacity-50 whitespace-nowrap ${clickedCargarRecaudaciones ? 'bg-purple-800 border-purple-600 text-white' : 'bg-gray-700 hover:bg-gray-600 border-gray-500'}`}
               >
                 Boton Carga Directorio
               </button>
