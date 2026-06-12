@@ -189,9 +189,6 @@ export default function GeneratorPage() {
           </h1>
 
           <div className="bg-gray-800 border border-gray-700 rounded-2xl p-4 mb-4">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-3 h-3 bg-[#D9C562] rounded-sm"></span>
-            </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
               <label className="whitespace-nowrap font-medium font-label min-w-0 sm:min-w-[280px] text-gray-400">
                 Directorio del Archivo Excel Datos Contratantes :
@@ -228,9 +225,6 @@ export default function GeneratorPage() {
           </div>
 
           <div className="bg-gray-800 border border-gray-700 rounded-2xl p-4">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-3 h-3 bg-[#D9C562] rounded-sm"></span>
-            </div>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6">
               <button
                 onClick={handleValidarContratantes}
