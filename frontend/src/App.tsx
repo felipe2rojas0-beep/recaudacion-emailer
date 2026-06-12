@@ -79,6 +79,10 @@ export default function App() {
 
       {currentPage === 'dashboard' && <DashboardPage />}
       {currentPage === 'generador' && <GeneratorPage />}
+
+      <footer className="bg-gray-900 border-t border-gray-700 px-4 py-3 text-right">
+        <span className="text-sm text-gray-400">Creado por: Marcelo Javier Ramirez Duran</span>
+      </footer>
     </div>
   );
 }
