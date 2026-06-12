@@ -213,14 +213,14 @@ export default function GeneratorPage() {
               <button
                 onClick={() => fileContratantesRef.current?.click()}
                 disabled={loading}
-                className={`px-6 py-2 border rounded-2xl font-body font-medium disabled:opacity-50 whitespace-nowrap ${clickedCargarContratantes ? 'bg-primary text-white border-primary' : 'bg-transparent border border-neutral-600 text-neutral-300 hover:bg-neutral-700'}`}
+                className={`px-6 py-3 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap transition-all shadow-lg ${clickedCargarContratantes ? 'bg-primary text-white shadow-primary/40' : 'bg-primary text-white hover:bg-orange-600 shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Boton Carga Archivo excel
               </button>
               <button
                 onClick={() => setShowContratantesModal(true)}
                 disabled={!archivoCargado}
-                className="px-6 py-2 bg-primary hover:bg-orange-600 border border-primary rounded-2xl font-body font-medium disabled:opacity-50 whitespace-nowrap text-white"
+                className="px-6 py-3 bg-secondary hover:bg-purple-600 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap text-white shadow-lg shadow-secondary/30 hover:shadow-secondary/40 hover:scale-[1.02] active:scale-95 transition-all"
               >
                 Ver Contratantes ({contratantes.length})
               </button>
@@ -235,14 +235,14 @@ export default function GeneratorPage() {
               <button
                 onClick={handleValidarContratantes}
                 disabled={loading || !validContratantes}
-                className={`px-6 py-3 border rounded-2xl font-body font-medium disabled:opacity-50 ${clickedValidarContratantes ? 'bg-green-700 border-green-600 text-white' : 'bg-transparent border border-neutral-600 text-neutral-300 hover:bg-neutral-700'}`}
+                className={`px-6 py-3.5 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedValidarContratantes ? 'bg-green-600 text-white shadow-green-600/40' : 'bg-green-600 text-white hover:bg-green-500 shadow-green-600/30 hover:shadow-green-500/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Boton Valida Archivos Excel Contratantes
               </button>
               <button
                 onClick={handleGenerarNombres}
                 disabled={loading || !validatedContratantes}
-                className={`px-6 py-3 border rounded-2xl font-body font-medium disabled:opacity-50 ${clickedGenerarNombres ? 'bg-green-700 border-green-600 text-white' : 'bg-transparent border border-neutral-600 text-neutral-300 hover:bg-neutral-700'}`}
+                className={`px-6 py-3.5 rounded-xl font-headline font-bold text-sm disabled:opacity-50 transition-all shadow-lg ${clickedGenerarNombres ? 'bg-primary text-white shadow-primary/40' : 'bg-primary text-white hover:bg-orange-600 shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95'}`}
               >
                 Boton Genera Nombre Para Archivos Excel Recaudacion
               </button>
@@ -271,7 +271,7 @@ export default function GeneratorPage() {
               <button
                 onClick={handleDescargarNombres}
                 disabled={generatedNames.length === 0 || loading}
-                className="px-4 py-2 bg-secondary hover:bg-purple-600 border border-secondary rounded-2xl font-body font-medium disabled:opacity-50 whitespace-nowrap text-sm text-white"
+                className="px-6 py-3 bg-secondary hover:bg-purple-600 rounded-xl font-headline font-semibold text-sm disabled:opacity-50 whitespace-nowrap text-white shadow-lg shadow-secondary/30 hover:shadow-secondary/40 hover:scale-[1.02] active:scale-95 transition-all"
               >
                 Descargar Lista Excel
               </button>
@@ -387,7 +387,7 @@ export default function GeneratorPage() {
                   <button
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="px-3 py-1 bg-neutral-700 hover:bg-neutral-600 border border-neutral-600 rounded-2xl text-sm text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 rounded-xl text-sm font-headline font-semibold text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     ← Anterior
                   </button>
@@ -395,10 +395,10 @@ export default function GeneratorPage() {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`px-3 py-1 border rounded-2xl text-sm font-body ${
+                      className={`px-4 py-2 rounded-xl text-sm font-headline font-semibold transition-all shadow-lg ${
                         currentPage === page
-                          ? 'bg-primary border-primary text-white'
-                          : 'bg-neutral-700 hover:bg-neutral-600 border-neutral-600 text-neutral-300'
+                          ? 'bg-primary text-white shadow-primary/30'
+                          : 'bg-neutral-700 hover:bg-neutral-600 text-neutral-300'
                       }`}
                     >
                       {page}
@@ -407,7 +407,7 @@ export default function GeneratorPage() {
                   <button
                     onClick={() => setCurrentPage(p => Math.min(totalContratantesPages, p + 1))}
                     disabled={currentPage === totalContratantesPages}
-                    className="px-3 py-1 bg-neutral-700 hover:bg-neutral-600 border border-neutral-600 rounded-2xl text-sm text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 rounded-xl text-sm font-headline font-semibold text-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     Siguiente →
                   </button>
@@ -418,7 +418,7 @@ export default function GeneratorPage() {
               </div>
               <button
                 onClick={() => setShowContratantesModal(false)}
-                className="mt-4 w-full py-2 bg-transparent border border-neutral-600 hover:bg-neutral-700 rounded-2xl font-body font-medium text-neutral-300"
+                className="mt-4 w-full py-3 bg-neutral-700 hover:bg-neutral-600 rounded-xl font-headline font-semibold text-neutral-300 transition-all shadow-lg hover:shadow-neutral-700/30"
               >
                 Cerrar
               </button>

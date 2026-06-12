@@ -55,33 +55,33 @@ export default function App() {
           <span className="text-white font-headline font-bold text-lg hidden sm:inline">Recaudación</span>
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <button
             onClick={() => setCurrentPage('home')}
-            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+            className={`px-5 py-2.5 rounded-xl font-headline font-semibold text-sm transition-all shadow-lg ${
               currentPage === 'home'
-                ? 'bg-primary text-white'
-                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+                ? 'bg-primary text-white shadow-primary/30 shadow-lg scale-105'
+                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white hover:shadow-neutral-700/30'
             }`}
           >
             HOME
           </button>
           <button
             onClick={() => setCurrentPage('dashboard')}
-            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+            className={`px-5 py-2.5 rounded-xl font-headline font-semibold text-sm transition-all shadow-lg ${
               currentPage === 'dashboard'
-                ? 'bg-primary text-white'
-                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+                ? 'bg-primary text-white shadow-primary/30 shadow-lg scale-105'
+                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white hover:shadow-neutral-700/30'
             }`}
           >
             Envío de Correos
           </button>
           <button
             onClick={() => setCurrentPage('generador')}
-            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+            className={`px-5 py-2.5 rounded-xl font-headline font-semibold text-sm transition-all shadow-lg ${
               currentPage === 'generador'
-                ? 'bg-primary text-white'
-                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+                ? 'bg-primary text-white shadow-primary/30 shadow-lg scale-105'
+                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white hover:shadow-neutral-700/30'
             }`}
           >
             Generador de Nombres
@@ -92,7 +92,7 @@ export default function App() {
         
         <button
           onClick={handleLogout}
-          className="px-4 py-2 rounded-lg font-medium bg-neutral-700 hover:bg-neutral-600 text-white text-sm transition-all"
+          className="px-5 py-2.5 rounded-xl font-headline font-semibold bg-red-600 hover:bg-red-500 text-white text-sm transition-all shadow-lg shadow-red-600/30 hover:shadow-red-500/40"
         >
           Cerrar Sesión
         </button>

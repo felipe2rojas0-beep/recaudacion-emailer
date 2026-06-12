@@ -77,7 +77,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary text-white py-3 px-4 rounded-xl hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed font-headline font-semibold transition-all"
+            className="w-full bg-primary text-white py-4 px-4 rounded-xl hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed font-headline font-bold text-lg transition-all shadow-xl shadow-primary/40 hover:shadow-primary/50 hover:scale-[1.02] active:scale-95"
           >
             {loading ? 'Ingresando...' : 'Iniciar Sesión'}
           </button>
