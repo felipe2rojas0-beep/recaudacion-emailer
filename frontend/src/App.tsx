@@ -45,12 +45,12 @@ export default function App() {
   }
 
   return (
-    <div>
-      <nav className="bg-gray-900 border-b border-gray-700 px-4 py-2 flex items-center gap-4">
-        <span className="text-white font-bold mr-4">Menú:</span>
+    <div className="flex flex-col h-screen">
+      <nav className="bg-gray-900 border-b border-gray-700 px-4 py-2 flex items-center gap-4 flex-shrink-0">
+        <span className="text-white font-bold mr-4 hidden sm:inline">Menú:</span>
         <button
           onClick={() => setCurrentPage('dashboard')}
-          className={`px-4 py-2 rounded font-medium ${
+          className={`px-3 py-2 rounded font-medium text-sm sm:text-base ${
             currentPage === 'dashboard'
               ? 'bg-blue-700 text-white'
               : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
@@ -60,7 +60,7 @@ export default function App() {
         </button>
         <button
           onClick={() => setCurrentPage('generador')}
-          className={`px-4 py-2 rounded font-medium ${
+          className={`px-3 py-2 rounded font-medium text-sm sm:text-base ${
             currentPage === 'generador'
               ? 'bg-blue-700 text-white'
               : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
@@ -71,17 +71,19 @@ export default function App() {
         <div className="flex-1"></div>
         <button
           onClick={handleLogout}
-          className="px-4 py-2 rounded font-medium bg-red-700 hover:bg-red-600 text-white"
+          className="px-3 py-2 rounded font-medium bg-red-700 hover:bg-red-600 text-white text-sm sm:text-base"
         >
           Cerrar Sesión
         </button>
       </nav>
 
-      {currentPage === 'dashboard' && <DashboardPage />}
-      {currentPage === 'generador' && <GeneratorPage />}
+      <main className="flex-1 overflow-y-auto bg-black">
+        {currentPage === 'dashboard' && <DashboardPage />}
+        {currentPage === 'generador' && <GeneratorPage />}
+      </main>
 
-      <footer className="bg-gray-900 border-t border-gray-700 px-4 py-3 text-right">
-        <span className="text-sm text-gray-400">Creado por: Marcelo Javier Ramirez Duran</span>
+      <footer className="bg-gray-900 border-t border-gray-700 px-4 py-3 text-right flex-shrink-0">
+        <span className="text-xs sm:text-sm text-gray-400">Creado por: Marcelo Javier Ramirez Duran</span>
       </footer>
     </div>
   );

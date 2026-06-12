@@ -228,8 +228,8 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="max-w-6xl mx-auto p-4">
+    <div className="min-h-full bg-black text-white">
+      <div className="max-w-6xl mx-auto p-2 sm:p-4">
         <div className="border border-gray-600 rounded-lg p-6 mb-6">
           <h1 className="text-center text-lg font-bold mb-6 border-b border-gray-600 pb-4">
             Sitio Web Gestion Archivos Excel Recaudacion por Contratante
@@ -239,8 +239,8 @@ export default function DashboardPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="w-3 h-3 bg-gray-600 rounded-sm"></span>
             </div>
-            <div className="flex items-center gap-4">
-              <label className="whitespace-nowrap font-medium min-w-[280px]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+              <label className="whitespace-nowrap font-medium min-w-0 sm:min-w-[280px]">
                 Directorio del Archivo Excel Datos Contratantes :
               </label>
               <input
@@ -329,7 +329,7 @@ export default function DashboardPage() {
             <div className="flex items-center gap-2 mb-4">
               <span className="w-3 h-3 bg-gray-600 rounded-sm"></span>
             </div>
-            <div className="flex justify-center gap-6">
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6">
               <button
                 onClick={handleValidarContratantes}
                 disabled={loading || !validContratantes}
