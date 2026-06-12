@@ -39,5 +39,5 @@ export default function App() {
     return <LoginPage onLogin={handleLogin} />;
   }
 
-  return <DashboardPage onLogout={handleLogout} />;
+  return <DashboardPage onLogout={handleLogout} user={user} />;
 }
